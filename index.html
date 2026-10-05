@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Octaves · Brio Music Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ind:#4f46e5;--pur:#9333ea;--pink:#d946ef;--rose:#f43f5e;--ink:#1e293b;--mut:#64748b}
+*{box-sizing:border-box;margin:0}
+body{font-family:Montserrat,sans-serif;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;background:linear-gradient(135deg,#4f46e5 0%,#d946ef 55%,#f43f5e 100%) fixed}
+h1,h2,h3,.big{font-family:Nunito,sans-serif}
+header{position:sticky;top:0;z-index:40;background:rgba(30,20,80,.28);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.2)}
+.hin{max-width:1200px;margin:auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.brand{color:#fff;font:900 1.6rem Nunito;display:flex;align-items:center;gap:10px}
+.brand span{font-size:.7rem;font-weight:700;letter-spacing:.2em;display:block;opacity:.8}
+nav{display:flex;gap:8px;overflow-x:auto;max-width:100%;padding:2px}
+nav button{border:0;cursor:pointer;font:700 .9rem Montserrat;padding:10px 18px;border-radius:99px;background:rgba(255,255,255,.88);color:#334155;white-space:nowrap;transition:.2s}
+nav button:hover{background:#fff;transform:translateY(-2px)}
+nav button.on{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;box-shadow:0 6px 16px rgba(234,88,12,.45)}
+.vol{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.88);padding:8px 14px;border-radius:99px}
+.vol button{border:0;background:none;cursor:pointer;font-size:1.1rem}
+.vol input{width:90px;accent-color:var(--ind)}
+main{flex:1;width:100%;max-width:1200px;margin:auto;padding:28px 16px}
+.pg{display:none;animation:fi .4s ease}.pg.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(14px)}}
+.card{background:rgba(255,255,255,.96);border-radius:28px;padding:36px clamp(16px,4vw,48px);box-shadow:0 24px 50px rgba(30,10,80,.28);text-align:center}
+.card h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;background:linear-gradient(90deg,var(--pur),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:8px}
+.sub{color:var(--mut);font-size:1.1rem;font-weight:500;margin-bottom:26px}
+.kbw{overflow-x:auto;padding:46px 4px 14px}
+.kbs{position:relative;min-width:var(--mw,1080px)}
+.kb{display:flex;background:#1f1b2e;padding:5px 3px 0;border-radius:10px;box-shadow:0 14px 28px rgba(0,0,0,.35);user-select:none}
+.wk{flex:1;position:relative;height:150px;background:linear-gradient(#fff,#f1f1f6);border:1px solid #cfcfdb;border-top:0;border-radius:0 0 6px 6px;box-shadow:inset 0 -4px 6px rgba(0,0,0,.08)}
+.wk.in{background:linear-gradient(#e0e7ff,#c7d2fe)}
+.wk.on{background:#ddd6fe;box-shadow:inset 0 3px 6px rgba(0,0,0,.2)}
+.bk{position:absolute;top:0;right:-30%;width:60%;height:62%;z-index:5;background:linear-gradient(#3a3a48,#000);border-radius:0 0 4px 4px;box-shadow:2px 3px 5px rgba(0,0,0,.4)}
+.lb{position:absolute;left:0;right:0;bottom:7px;text-align:center;font:800 .62rem Montserrat;color:#6366f1;pointer-events:none}
+.mini .wk{height:90px}.mini .bk{height:60%}
+.ov{position:absolute;top:0;bottom:0;z-index:20;cursor:pointer;border:2px solid transparent;border-radius:8px;transition:.2s;--h:240}
+.ov:hover,.ov.hl{background:hsl(var(--h) 85% 55%/.3);border-color:hsl(var(--h) 80% 45%);box-shadow:inset 0 0 22px hsl(var(--h) 80% 50%/.35)}
+.ov.good{background:rgba(34,197,94,.45);border-color:#16a34a}.ov.bad{background:rgba(239,68,68,.45);border-color:#dc2626}
+.ov.pulse{animation:pl 1s infinite}@keyframes pl{50%{background:rgba(245,158,11,.4)}}
+.ot{position:absolute;top:-34px;left:0;right:0;text-align:center;font:900 .85rem Nunito;color:#4338ca;transition:.25s;opacity:0}
+.tt .ot,.ov:hover .ot,.ov.hl .ot{opacity:1}.ov:hover .ot{transform:scale(1.25);color:hsl(var(--h) 80% 40%)}
+.def{display:inline-block;margin-top:22px;padding:20px 30px;border-radius:20px;background:linear-gradient(135deg,#eef2ff,#fdf2f8);border:1px solid #e0e7ff;font-size:1.15rem;color:#475569}
+.def b{display:block;font:900 1.6rem Nunito;color:var(--ind);letter-spacing:.08em;margin-bottom:4px}
+.qtop{display:flex;justify-content:space-between;font-weight:700;color:var(--mut);margin-bottom:10px}
+.score b{margin-left:12px;padding:3px 12px;border-radius:99px}.g{background:#dcfce7;color:#15803d}.r{background:#fee2e2;color:#b91c1c}
+.bar{height:8px;background:#e2e8f0;border-radius:9px;overflow:hidden;margin-bottom:26px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ind),var(--rose));transition:.4s}
+.q h3{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;margin-bottom:24px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.opts.wide{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.opt{font:800 1.15rem Nunito;padding:20px 14px;border-radius:18px;border:2px solid #e0e7ff;background:#fff;cursor:pointer;color:var(--ink);transition:.2s}
+.opt:hover{transform:translateY(-4px);border-color:var(--ind);box-shadow:0 12px 24px rgba(79,70,229,.2)}
+.opt *{pointer-events:none}
+.opt.good{background:#dcfce7;border-color:#16a34a}.opt.bad{background:#fee2e2;border-color:#dc2626;animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.btn{border:0;cursor:pointer;font:800 1.1rem Nunito;color:#fff;padding:14px 34px;border-radius:99px;background:linear-gradient(135deg,var(--ind),var(--pink));box-shadow:0 10px 22px rgba(147,51,234,.4);transition:.2s}
+.btn:hover{transform:translateY(-3px) scale(1.03)}.btn.alt{background:#fff;color:var(--ind);border:2px solid #c7d2fe;box-shadow:none}
+.res .big{font-size:4.5rem;font-weight:900;color:var(--ind)}.res p{font-size:1.4rem;font-weight:700;margin:12px 0 26px}
+#fb{position:fixed;inset:0;z-index:100;display:none;place-items:center;pointer-events:none}
+#fb.show{display:grid}
+#fb svg{width:170px;height:170px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.35));animation:pop 1s forwards}
+#fb path{stroke-dasharray:60;stroke-dashoffset:60;animation:dr .45s .15s forwards}
+@keyframes dr{to{stroke-dashoffset:0}}@keyframes pop{0%{transform:scale(0)}25%{transform:scale(1.15)}40%,75%{transform:scale(1)}100%{transform:scale(1.4);opacity:0}}
+#fb.x svg{animation:xs .9s forwards}@keyframes xs{0%{transform:scale(0)}20%{transform:scale(1.2)}35%{transform:scale(1.2) translateX(-16px)}50%{transform:scale(1.2) translateX(16px)}65%{transform:scale(1.2) translateX(-8px)}100%{transform:scale(1);opacity:0}}
+.tools{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.setup{max-width:560px;margin:auto;text-align:left}.setup h4{margin:18px 0 10px;font:800 1.1rem Nunito}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:2px solid #c7d2fe;background:#fff;border-radius:99px;padding:9px 18px;font:800 .95rem Nunito;cursor:pointer}.chip.on{background:var(--ind);color:#fff;border-color:var(--ind)}
+.setup input[type=number]{width:90px;padding:9px;border-radius:12px;border:2px solid #c7d2fe;font:800 1rem Nunito}
+.sw{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:16px;background:#f5f3ff;cursor:pointer;font-weight:600}.sw input{width:22px;height:22px;accent-color:var(--ind)}
+.hud{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.timer{font:900 2.2rem Nunito;background:#1e1b4b;color:#fff;padding:6px 26px;border-radius:99px;min-width:130px}.timer.low{background:#dc2626;animation:pl2 1s infinite}@keyframes pl2{50%{opacity:.7}}
+.target{font:900 clamp(1.5rem,4vw,2.4rem) Nunito;padding:16px 34px;border-radius:22px;background:linear-gradient(135deg,#eef2ff,#fdf2f8);border:2px solid #c7d2fe;display:inline-block;margin-bottom:10px}
+.target em{font-style:normal;color:var(--pur)}
+.jg{display:flex;justify-content:center;gap:30px;margin:20px 0}.jg button{width:110px;height:110px;border-radius:50%;border:0;cursor:pointer;font-size:3.2rem;color:#fff;box-shadow:0 12px 24px rgba(0,0,0,.25);transition:.15s}.jg button:active{transform:scale(.92)}
+.modal{position:fixed;inset:0;z-index:90;background:rgba(30,20,80,.65);display:grid;place-items:center;padding:16px}
+footer{margin-top:30px;background:rgba(255,255,255,.96);text-align:center;padding:34px 16px 28px;border-radius:32px 32px 0 0;box-shadow:0 -10px 30px rgba(30,10,80,.25)}
+.flogo{height:96px;max-width:80%}
+.copy{font-weight:700;margin:10px 0 16px}
+.soc{display:flex;justify-content:center;gap:14px}.soc a{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#eef0ff;border:1px solid #dfe3ff;color:#3730a3;transition:.2s}.soc a:hover{background:var(--ind);color:#fff;transform:translateY(-4px)}
+.soc svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:640px){.vol input{width:60px}.jg button{width:90px;height:90px}}
+html{-webkit-text-size-adjust:100%}button,.ov,.wk,.bk{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.kbw{overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.ctl{display:flex;gap:8px;align-items:center}.lang{border:0;border-radius:99px;padding:10px 12px;font:700 .85rem Montserrat;background:rgba(255,255,255,.88);color:#334155;cursor:pointer}
+.touch{display:none;color:var(--mut);font-size:.85rem;margin-top:4px}
+@media(max-width:640px){.hin{padding:8px 12px;gap:8px}.brand{font-size:1.2rem}.brand span{display:none}nav{order:3;width:100%}.ctl{margin-left:auto}.vol{padding:6px 10px}
+main{padding:14px 10px}.card{padding:22px 14px;border-radius:22px}.wk{height:120px}.mini .wk{height:70px}.opts,.opts.wide{grid-template-columns:1fr}.opt{padding:16px 10px;font-size:1.05rem}
+.touch{display:block}.timer{font-size:1.7rem}.res .big{font-size:3.2rem}.kbw{padding-top:40px}.flogo{height:76px}.def{padding:16px 18px;font-size:1rem}.setup h4{margin-top:14px}.target{padding:12px 20px}}
+</style>
+</head>
+<body>
+<header><div class="hin">
+ <div class="brand">🎹<div>Octaves<span>BRIO MUSIC STUDIO</span></div></div>
+ <nav id="nav"></nav>
+ <div class="ctl"><select class="lang" id="lang" aria-label="Language"><option value="uk">🇺🇦 Українська</option><option value="ru">🇷🇺 Русский</option><option value="en">🇬🇧 English</option></select>
+ <div class="vol"><button id="mute">🔊</button><input id="vol" type="range" min="0" max="100" value="70" aria-label="Volume"></div></div>
+</div></header>
+<main>
+ <div id="fb"></div>
+ <section class="pg on" id="p0"><div class="card" id="intro"></div><div class="card q" id="q1" style="margin-top:22px"></div></section>
+ <section class="pg" id="p1"><div class="card"><div class="q" id="q2"></div></div></section>
+ <section class="pg" id="p2"><div class="card" id="q3"></div></section>
+ <section class="pg" id="p3"><div class="card" id="q4"></div></section>
+</main>
+<footer>
+ <img class="flogo" src="logo.svg" alt="Brio Music Studio">
+ <p class="copy">© Мар'яна Вихрист (Mariana Vykhryst)</p>
+ <div class="soc">
+  <a href="https://www.instagram.com/brio_musicstudio/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
+  <a href="https://t.me/briomusicstudio" aria-label="Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></a>
+  <a href="https://www.tiktok.com/@brio_music_studio_" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3v11.5a4 4 0 1 1-4-4M14 3c.4 2.8 2.2 4.6 5 5"/></svg></a>
+ </div>
+</footer>
+<script>
+let L='uk';
+const LG={
+uk:{n0:'Знайомство та тест',n1:'Межі октави',n2:'Назви октав',n3:'Гра на швидкість',h0:'Уся клавіатура',h0d:'Наведи курсор (або торкнись) на октаву — вона підсвітиться та зазвучить.',swipe:'👉 Клавіатуру можна гортати вбік. Зручніше повернути телефон горизонтально.',defw:'ОКТАВА',defd:'послідовна частина клавіатури від ноти ДО до ноти СІ.',qh:'Перевір себе',qn:'Питання {a} з {b}',
+a1:'Скільки нот в одній октаві?',a2:'Чи є октавою ноти від {x} до {y}?',yes2:'Так, це октава',no2:'Ні, це лише частина октави',a3:'Яка послідовність нот в октаві правильна?',a4:'З якої ноти починається октава?',a5:'Якою нотою закінчується октава?',
+b1:'Де правильно виділено межі октави — від {x} до {y}?',f1:'Знайди {o} октаву',f2:'Клікни на потрібну октаву на клавіатурі.',hint:'💡 Підказка',of:'{a} із {b}',
+p1:'Чудово! Ти справжній музикант! 🎉',p2:'Молодець! Ще трохи практики — і буде ідеально! 🌟',p3:'Не засмучуйся — помилки допомагають вчитись. Спробуй ще раз, у тебе вийде! 💪',again:'Пройти ще раз',
+gt:'Гра на швидкість',gs:'Знайди названу ноту на клавіатурі, поки не вийшов час!',gtime:'⏱ Час гри',gown:'Свій час:',sec:'с',gmode:'🎹 Режим',gonl:'Клікабельна клавіатура (онлайн). Вимкни, якщо учень грає на інструменті, а вчитель натискає ✓ / ✗.',gacc:'Грати з дієзами та бемолями ♯ ♭',go:'Поїхали! 🚀',stop:'Зупинити',up:'Час вийшов!',res:'За {t} — {n} нот — {e} помилок',again2:'Грати ще',set:'Налаштування',g1:'ІДЕАЛЬНО! 🏆',g2:'МОЛОДЕЦЬ! 🎉',g3:'Гарна спроба! Тренуйся — і буде ще краще! 💪',
+sharp:'дієз',flat:'бемоль',tg:'{n} {o} октави',mute:'Вимкнути звук',cs:['30 с','1 хв','2 хв','3 хв'],
+on:['Контроктава','Велика','Мала','Перша','Друга','Третя','Четверта'],og:['Контроктави','Великої','Малої','Першої','Другої','Третьої','Четвертої'],oa:['контроктаву','велику','малу','першу','другу','третю','четверту']},
+ru:{n0:'Знакомство и тест',n1:'Границы октавы',n2:'Названия октав',n3:'Игра на скорость',h0:'Вся клавиатура',h0d:'Наведи курсор (или коснись) на октаву — она подсветится и зазвучит.',swipe:'👉 Клавиатуру можно листать вбок. Удобнее повернуть телефон горизонтально.',defw:'ОКТАВА',defd:'последовательная часть клавиатуры от ноты ДО до ноты СИ.',qh:'Проверь себя',qn:'Вопрос {a} из {b}',
+a1:'Сколько нот в одной октаве?',a2:'Является ли октавой ноты от {x} до {y}?',yes2:'Да, это октава',no2:'Нет, это только часть октавы',a3:'Какая последовательность нот в октаве правильная?',a4:'С какой ноты начинается октава?',a5:'Какой нотой заканчивается октава?',
+b1:'Где правильно выделены границы октавы — от {x} до {y}?',f1:'Найди {o} октаву',f2:'Кликни на нужную октаву на клавиатуре.',hint:'💡 Подсказка',of:'{a} из {b}',
+p1:'Отлично! Ты настоящий музыкант! 🎉',p2:'Молодец! Ещё немного практики — и будет идеально! 🌟',p3:'Не расстраивайся — ошибки помогают учиться. Попробуй ещё раз, у тебя получится! 💪',again:'Пройти ещё раз',
+gt:'Игра на скорость',gs:'Найди названную ноту на клавиатуре, пока не вышло время!',gtime:'⏱ Время игры',gown:'Своё время:',sec:'с',gmode:'🎹 Режим',gonl:'Кликабельная клавиатура (онлайн). Выключи, если ученик играет на инструменте, а учитель нажимает ✓ / ✗.',gacc:'Играть с диезами и бемолями ♯ ♭',go:'Поехали! 🚀',stop:'Остановить',up:'Время вышло!',res:'За {t} — {n} нот — {e} ошибок',again2:'Играть ещё',set:'Настройки',g1:'ИДЕАЛЬНО! 🏆',g2:'МОЛОДЕЦ! 🎉',g3:'Хорошая попытка! Тренируйся — и будет ещё лучше! 💪',
+sharp:'диез',flat:'бемоль',tg:'{n} {o} октавы',mute:'Выключить звук',cs:['30 с','1 мин','2 мин','3 мин'],
+on:['Контроктава','Большая','Малая','Первая','Вторая','Третья','Четвёртая'],og:['Контроктавы','Большой','Малой','Первой','Второй','Третьей','Четвёртой'],oa:['контроктаву','большую','малую','первую','вторую','третью','четвёртую']},
+en:{n0:'Intro & quiz',n1:'Octave limits',n2:'Octave names',n3:'Speed game',h0:'The whole keyboard',h0d:'Hover (or tap) an octave — it lights up and plays.',swipe:'👉 Swipe the keyboard sideways. Landscape mode works best on a phone.',defw:'OCTAVE',defd:'a consecutive part of the keyboard from the note C to the note B.',qh:'Test yourself',qn:'Question {a} of {b}',
+a1:'How many notes are in one octave?',a2:'Is the span from {x} to {y} an octave?',yes2:'Yes, it is an octave',no2:'No, it is only part of an octave',a3:'Which note order in an octave is correct?',a4:'Which note does an octave start with?',a5:'Which note does an octave end with?',
+b1:'Which keyboard shows the octave limits correctly — from {x} to {y}?',f1:'Find the {o} octave',f2:'Click the right octave on the keyboard.',hint:'💡 Hint',of:'{a} out of {b}',
+p1:'Excellent! You are a real musician! 🎉',p2:'Well done! A little more practice and it will be perfect! 🌟',p3:'Don’t worry — mistakes help us learn. Try again, you can do it! 💪',again:'Try again',
+gt:'Speed game',gs:'Find the named note on the keyboard before time runs out!',gtime:'⏱ Game time',gown:'Custom time:',sec:'s',gmode:'🎹 Mode',gonl:'Clickable keyboard (online). Turn off if the student plays an instrument and the teacher taps ✓ / ✗.',gacc:'Play with sharps and flats ♯ ♭',go:'Let’s go! 🚀',stop:'Stop',up:'Time’s up!',res:'In {t}: {n} notes, {e} mistakes',again2:'Play again',set:'Settings',g1:'PERFECT! 🏆',g2:'WELL DONE! 🎉',g3:'Good try! Keep practising and it gets better! 💪',
+sharp:'sharp',flat:'flat',tg:'{n} of the {o} octave',mute:'Mute',cs:['30 s','1 min','2 min','3 min'],
+on:['Contra','Great','Small','1st','2nd','3rd','4th'],og:['Contra','Great','Small','1st','2nd','3rd','4th'],oa:['contra','great','small','1st','2nd','3rd','4th']}};
+const t=(k,o={})=>(LG[L][k]??LG.uk[k]).replace(/\{(\w+)\}/g,(m,x)=>o[x]),
+NN=()=>L=='en'?['C','D','E','F','G','A','B']:L=='ru'?['ДО','РЕ','МИ','ФА','СОЛЬ','ЛЯ','СИ']:['ДО','РЕ','МІ','ФА','СОЛЬ','ЛЯ','СІ'],ON=()=>LG[L].on,OG=()=>LG[L].og,OA=()=>LG[L].oa;
+
+const $=s=>document.querySelector(s),WS=[0,2,4,5,7,9,11],BS=[1,3,0,6,8,10];
+const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+/* ---------- ЗВУК: м'який «піаніно»-синтез ---------- */
+let ac,mg,vol=.7,muted=false;
+function audio(){if(ac){ac.state==='suspended'&&ac.resume();return}
+ ac=new(window.AudioContext||window.webkitAudioContext)();mg=ac.createGain();setVol();
+ const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2800;lp.Q.value=.3;
+ const cp=ac.createDynamicsCompressor(),d=ac.createDelay(),fb=ac.createGain(),w=ac.createGain();
+ d.delayTime.value=.085;fb.gain.value=.3;w.gain.value=.16;
+ mg.connect(lp);lp.connect(cp);cp.connect(ac.destination);lp.connect(d);d.connect(fb);fb.connect(d);d.connect(w);w.connect(cp)}
+function setVol(){if(mg)mg.gain.value=muted?0:Math.pow(vol,2)*.9}
+function note(o,s,at=0,v=.32){audio();const m=24+12*o+s,f=440*2**((m-69)/12),t=ac.currentTime+at+.01,dur=Math.max(.9,3-(m-24)/36);
+ const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.018);g.gain.exponentialRampToValueAtTime(v*.35,t+.25);g.gain.exponentialRampToValueAtTime(.0005,t+dur);g.connect(mg);
+ [[1,1],[1.003,.5],[2,.4],[3,.16],[4,.08],[5,.04]].forEach(([k,a])=>{const x=ac.createOscillator(),y=ac.createGain();x.type='sine';x.frequency.value=f*k*(k>2?1+.0003*k*k:1);y.gain.value=a/(1+f*k/9000);x.connect(y);y.connect(g);x.start(t);x.stop(t+dur+.1)})}
+const arp=o=>[0,4,7].forEach((s,i)=>note(o,s,i*.17,.3));
+$('#vol').oninput=e=>{vol=e.target.value/100;muted=false;$('#mute').textContent=vol?'🔊':'🔈';setVol()};
+$('#mute').onclick=()=>{muted=!muted;$('#mute').textContent=muted?'🔇':'🔊';setVol()};
+document.addEventListener('pointerdown',audio,{once:true});
+/* ---------- Клавіатура ---------- */
+function kbHTML(n,o={}){const a=o.hl||[-1,-1];let h='<div class="kb">';
+ for(let i=0;i<n*7;i++){const oc=i/7|0,k=i%7;h+=`<div class="wk${i>=a[0]&&i<=a[1]?' in':''}" data-o="${oc}" data-n="${k}">${o.lbl&&k==0?`<span class="lb">${NN()[0]}<sub>${oc+1}</sub></span>`:''}${k!=2&&k!=6?`<div class="bk" data-o="${oc}" data-s="${BS[k]}"></div>`:''}</div>`}
+ h+='</div>';if(o.ov)for(let i=0;i<n;i++)h+=`<div class="ov" data-o="${i}" style="left:${i/n*100}%;width:${100/n}%;--h:${[250,330,150,30,190,280,10][i%7]}"><span class="ot">${ON()[i]}</span></div>`;return h}
+const ok_svg='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#22c55e"/><path d="M28 52l16 16 30-34" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ no_svg='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#ef4444"/><path d="M33 33l34 34M67 33L33 67" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/></svg>';
+function fb(good){const e=$('#fb');e.className='';e.innerHTML=good?ok_svg:no_svg;void e.offsetWidth;e.className='show'+(good?'':' x');clearTimeout(fb.t);fb.t=setTimeout(()=>e.className='',1100);
+ good?(note(4,0,0,.2),note(4,4,.1,.2),note(4,7,.2,.2)):note(2,1,0,.3)}
+function result(root,ok,tot,again){root.innerHTML=`<div class="res"><div class="big">${t('of',{a:ok,b:tot})}</div><p>${ok/tot>=.9?t('p1'):ok/tot>=.6?t('p2'):t('p3')}</p><button class="btn">${t('again')}</button></div>`;root.querySelector('.btn').onclick=again;if(ok/tot>=.6)arp(4)}
+const score=(o,b)=>`<span class="score"><b class="g">✓ ${o}</b><b class="r">✗ ${b}</b></span>`;
+const mk=(q,c,w)=>{const o=sh([c,...w]);return{q,opts:o,a:o.indexOf(c)}};
+function quiz1(){const n=NN(),sq=a=>a.map(i=>n[i]).join(' ');
+ run($('#q1'),[mk(t('a1'),'7',['5','8','12']),mk(t('a2',{x:n[0],y:n[4]}),t('no2'),[t('yes2')]),mk(t('a3'),sq([0,1,2,3,4,5,6]),[sq([0,2,1,3,4,6,5]),sq([1,2,3,4,5,6,0]),sq([0,1,2,4,3,5,6])]),mk(t('a4'),n[0],[n[1],n[5],n[6]]),mk(t('a5'),n[6],[n[0],n[4],n[1]])],quiz1,'',`<h2 style="font-size:clamp(1.5rem,3.5vw,2.2rem)">${t('qh')}</h2><br>`)}
+function run(R,it,again,cls='',head=''){let i=0,ok=0,bad=0,lock=0;(function d(){if(i>=it.length)return result(R,ok,it.length,again);const q=it[i];
+ R.innerHTML=`${head}<div class="qtop"><span>${t('qn',{a:i+1,b:it.length})}</span>${score(ok,bad)}</div><div class="bar"><i style="width:${i/it.length*100}%"></i></div><h3 style="font:800 clamp(1.2rem,3vw,1.9rem) Nunito;margin-bottom:22px">${q.q}</h3><div class="opts ${cls}">${q.opts.map((o,k)=>`<button class="opt" data-k="${k}">${o}</button>`).join('')}</div>`;
+ R.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(lock)return;lock=1;const g=+b.dataset.k===q.a;b.classList.add(g?'good':'bad');R.querySelectorAll('.opt')[q.a].classList.add('good');g?ok++:bad++;fb(g);setTimeout(()=>{i++;lock=0;d()},1400)})})()}
+function quiz2(){const it=[],n=NN();for(let r=0;r<5;r++){const c=Math.random()<.5?0:7,all=sh([c,...sh([1,2,3,4,5,6]).slice(0,2)]);
+ it.push({q:t('b1',{x:n[0],y:n[6]}),opts:all.map(s=>`<div class="mini kbs" style="min-width:0">${kbHTML(2,{hl:[s,s+6]})}</div>`),a:all.indexOf(c)})}
+ run($('#q2'),it,quiz2,'wide')}
+function quiz3(){const R=$('#q3'),ord=sh([0,1,2,3,4,5,6]);let i=0,ok=0,bad=0,lock=0;
+ (function d(){if(i>=7)return result(R,ok,7,quiz3);const a=ord[i];
+ R.innerHTML=`<div class="qtop"><span>${t('qn',{a:i+1,b:7})}</span>${score(ok,bad)}</div><div class="bar"><i style="width:${i/7*100}%"></i></div><h2 style="font-size:clamp(1.4rem,3.5vw,2.2rem)">${t('f1',{o:OA()[a]})}</h2><p class="sub">${t('f2')}</p><div class="tools"><button class="btn alt" id="hint">${t('hint')}</button></div><div class="kbw"><div class="kbs" id="k3">${kbHTML(7,{ov:1,lbl:1})}</div></div><p class="touch">${t('swipe')}</p>`;
+ $('#hint').onclick=()=>$('#k3').classList.toggle('tt');
+ R.querySelectorAll('.ov').forEach(v=>v.onclick=()=>{if(lock)return;lock=1;const o=+v.dataset.o,g=o===a;v.classList.add(g?'good':'bad');if(!g)R.querySelector(`.ov[data-o="${a}"]`).classList.add('good');g?ok++:bad++;arp(o);fb(g);setTimeout(()=>{i++;lock=0;d()},1500)})})()}
+let G={sec:60,online:true,acc:false};
+const nm=(k,a)=>a?(L=='en'?NN()[k]+(a>0?'♯':'♭'):NN()[k]+'-'+t(a>0?'sharp':'flat')):NN()[k];
+function setup4(){const R=$('#q4');R.innerHTML=`<h2>${t('gt')}</h2><p class="sub">${t('gs')}</p><div class="setup"><h4>${t('gtime')}</h4><div class="chips">${[30,60,120,180].map((s,i)=>`<button class="chip${s==G.sec?' on':''}" data-s="${s}">${LG[L].cs[i]}</button>`).join('')}</div>
+ <p style="margin-top:12px">${t('gown')} <input type="number" id="cs" min="10" max="900" value="${G.sec}"> ${t('sec')}</p>
+ <h4>${t('gmode')}</h4><label class="sw"><input type="checkbox" id="onl" ${G.online?'checked':''}> ${t('gonl')}</label><label class="sw" style="margin-top:10px"><input type="checkbox" id="acc" ${G.acc?'checked':''}> ${t('gacc')}</label>
+ <div style="text-align:center;margin-top:26px"><button class="btn" id="go" style="font-size:1.4rem;padding:16px 46px">${t('go')}</button></div></div>`;
+ R.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{$('#cs').value=c.dataset.s;R.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==c))});
+ $('#go').onclick=()=>{G.sec=Math.max(10,Math.min(900,+$('#cs').value||60));G.online=$('#onl').checked;G.acc=$('#acc').checked;play4()}}
+function tm(s){if(s%60)return s+' '+t('sec');const m=s/60;return L=='uk'?(m==1?'1 хвилину':m<5?m+' хвилини':m+' хвилин'):L=='ru'?(m==1?'1 минуту':m<5?m+' минуты':m+' минут'):m+(m==1?' minute':' minutes')}
+function play4(){const R=$('#q4');let ok=0,bad=0,T=null,end=Date.now()+G.sec*1e3,done=0;
+ R.innerHTML=`<div class="hud"><div class="timer" id="tmr"></div><span id="sc"></span><button class="btn alt" id="stop" style="padding:10px 22px">${t('stop')}</button></div><div class="target" id="tg"></div>${G.online?`<div class="kbw" style="padding-top:8px"><div class="kbs" id="k4" style="--mw:1180px">${kbHTML(7,{lbl:1})}</div></div><p class="touch">${t('swipe')}</p>`:'<div class="jg"><button id="yes" style="background:#22c55e">✓</button><button id="no" style="background:#ef4444">✗</button></div>'}`;
+ const gen=()=>{let n;do{const o=Math.random()*7|0;if(G.acc&&Math.random()<.45){const k=[0,1,3,4,5][Math.random()*5|0],f=Math.random()<.5;n={o,s:BS[k],b:1,k:f?k+1:k,a:f?-1:1}}else{const k=Math.random()*7|0;n={o,k,s:WS[k],b:0,a:0}}}while(T&&n.o==T.o&&n.s==T.s);return n},
+ nx=()=>{T=gen();$('#tg').innerHTML=t('tg',{n:'<em>'+nm(T.k,T.a)+'</em>',o:OG()[T.o]});$('#sc').innerHTML=score(ok,bad)},
+ ans=g=>{if(done)return;g?ok++:bad++;fb(g);nx()};nx();
+ if(G.online)$('#k4').onclick=e=>{const k=e.target.closest('.bk,.wk');if(!k||done)return;const o=+k.dataset.o;if(k.classList.contains('bk')){note(o,+k.dataset.s);return G.acc&&ans(!!T.b&&o==T.o&&+k.dataset.s==T.s)}note(o,WS[+k.dataset.n]);ans(!T.b&&o==T.o&&+k.dataset.n==T.k)};
+ else{$('#yes').onclick=()=>ans(1);$('#no').onclick=()=>ans(0)}
+ const fin=()=>{if(done)return;done=1;clearInterval(iv);const m=document.createElement('div');m.className='modal';
+  m.innerHTML=`<div class="card res" style="max-width:520px"><h2>${t('up')}</h2><p>${t('res',{t:tm(G.sec),n:ok,e:bad})}</p><div class="big" style="font-size:2.2rem">${bad==0&&ok>0?t('g1'):ok>=bad*3&&ok>0?t('g2'):t('g3')}</div><br><button class="btn" id="again">${t('again2')}</button> <button class="btn alt" id="chg">${t('set')}</button></div>`;
+  document.body.appendChild(m);if(ok>bad)arp(4);$('#again').onclick=()=>{m.remove();play4()};$('#chg').onclick=()=>{m.remove();setup4()}};
+ const iv=setInterval(()=>{const l=Math.max(0,Math.ceil((end-Date.now())/1e3)),e=$('#tmr');if(!e)return clearInterval(iv);e.textContent=Math.floor(l/60)+':'+String(l%60).padStart(2,'0');e.classList.toggle('low',l<=10);if(l<=0)fin()},200);
+ $('#stop').onclick=()=>{done=1;clearInterval(iv);setup4()}}
+function renderIntro(){$('#intro').innerHTML=`<h2>${t('h0')}</h2><p class="sub">${t('h0d')}</p><div class="kbw"><div class="kbs tt" id="kb0">${kbHTML(7,{ov:1,lbl:1})}</div></div><p class="touch">${t('swipe')}</p><div class="def"><b>${t('defw')}</b>${t('defd')}</div>`;
+ let last=0;const hit=e=>{const v=e.target.closest('.ov');if(!v||Date.now()-last<250)return;last=Date.now();arp(+v.dataset.o)};const k=$('#kb0');k.addEventListener('pointerenter',hit,true);k.addEventListener('click',hit)}
+const T=[['🎼','n0',quiz1],['↔️','n1',quiz2],['🔍','n2',quiz3],['⚡','n3',setup4]];let cur=0;
+function go(i,sc=1){cur=i;document.querySelectorAll('.pg').forEach((p,k)=>p.classList.toggle('on',k==i));document.querySelectorAll('nav button').forEach((b,k)=>b.classList.toggle('on',k==i));T[i][2]();sc&&scrollTo({top:0,behavior:'smooth'})}
+$('#nav').onclick=e=>{const b=e.target.closest('button');b&&go(+b.dataset.i)};
+function setLang(l){L=l;try{localStorage.setItem('lang',l)}catch(e){}document.documentElement.lang=l;$('#lang').value=l;$('#mute').title=t('mute');
+ $('#nav').innerHTML=T.map((x,i)=>`<button data-i="${i}">${x[0]} ${t(x[1])}</button>`).join('');renderIntro();go(cur,0)}
+$('#lang').onchange=e=>setLang(e.target.value);
+let L0='uk';try{L0=localStorage.getItem('lang')||L0}catch(e){}
+setLang(LG[L0]?L0:'uk');
+</script>
+</body>
+</html>
