@@ -12,7 +12,7 @@
 body{font-family:Montserrat,sans-serif;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;background:linear-gradient(135deg,#4f46e5 0%,#d946ef 55%,#f43f5e 100%) fixed}
 h1,h2,h3,.big{font-family:Nunito,sans-serif}
 header{position:sticky;top:0;z-index:40;background:rgba(30,20,80,.28);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.2)}
-.hin{max-width:1200px;margin:auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.hin{max-width:1560px;margin:auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
 .brand{color:#fff;font:900 1.6rem Nunito;display:flex;align-items:center;gap:10px}
 .brand span{font-size:.7rem;font-weight:700;letter-spacing:.2em;display:block;opacity:.8}
 nav{display:flex;gap:8px;overflow-x:auto;max-width:100%;padding:2px}
@@ -22,10 +22,10 @@ nav button.on{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;box-
 .vol{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.88);padding:8px 14px;border-radius:99px}
 .vol button{border:0;background:none;cursor:pointer;font-size:1.1rem}
 .vol input{width:90px;accent-color:var(--ind)}
-main{flex:1;width:100%;max-width:1200px;margin:auto;padding:28px 16px}
+main{flex:1;width:100%;max-width:1560px;margin:auto;padding:28px 16px}
 .pg{display:none;animation:fi .4s ease}.pg.on{display:block}
 @keyframes fi{from{opacity:0;transform:translateY(14px)}}
-.card{background:rgba(255,255,255,.96);border-radius:28px;padding:36px clamp(16px,4vw,48px);box-shadow:0 24px 50px rgba(30,10,80,.28);text-align:center}
+.card{background:rgba(255,255,255,.96);border-radius:28px;padding:36px clamp(14px,2.2vw,30px);box-shadow:0 24px 50px rgba(30,10,80,.28);text-align:center}
 .card h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;background:linear-gradient(90deg,var(--pur),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:8px}
 .sub{color:var(--mut);font-size:1.1rem;font-weight:500;margin-bottom:26px}
 .kbw{overflow-x:auto;padding:46px 4px 14px}
@@ -165,8 +165,8 @@ function kbHTML(n,o={}){const a=o.hl||[-1,-1];let h='<div class="kb">';
  h+='</div>';if(o.ov)for(let i=0;i<n;i++)h+=`<div class="ov" data-o="${i}" style="left:${i/n*100}%;width:${100/n}%;--h:${[250,330,150,30,190,280,10][i%7]}"><span class="ot">${ON()[i]}</span></div>`;return h}
 const ok_svg='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#22c55e"/><path d="M28 52l16 16 30-34" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>',
  no_svg='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#ef4444"/><path d="M33 33l34 34M67 33L33 67" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/></svg>';
-function fb(good){const e=$('#fb');e.className='';e.innerHTML=good?ok_svg:no_svg;void e.offsetWidth;e.className='show'+(good?'':' x');clearTimeout(fb.t);fb.t=setTimeout(()=>e.className='',1100);
- good?(note(4,0,0,.2),note(4,4,.1,.2),note(4,7,.2,.2)):note(2,1,0,.3)}
+function fb(good,q){const e=$('#fb');e.className='';e.innerHTML=good?ok_svg:no_svg;void e.offsetWidth;e.className='show'+(good?'':' x');clearTimeout(fb.t);fb.t=setTimeout(()=>e.className='',1100);
+ if(!good){note(3,0,0,.13);note(2,9,.16,.11)}else if(!q){note(4,0,0,.2);note(4,4,.1,.2);note(4,7,.2,.2)}}
 function result(root,ok,tot,again){root.innerHTML=`<div class="res"><div class="big">${t('of',{a:ok,b:tot})}</div><p>${ok/tot>=.9?t('p1'):ok/tot>=.6?t('p2'):t('p3')}</p><button class="btn">${t('again')}</button></div>`;root.querySelector('.btn').onclick=again;if(ok/tot>=.6)arp(4)}
 const score=(o,b)=>`<span class="score"><b class="g">✓ ${o}</b><b class="r">✗ ${b}</b></span>`;
 const mk=(q,c,w)=>{const o=sh([c,...w]);return{q,opts:o,a:o.indexOf(c)}};
@@ -182,7 +182,7 @@ function quiz3(){const R=$('#q3'),ord=sh([0,1,2,3,4,5,6]);let i=0,ok=0,bad=0,loc
  (function d(){if(i>=7)return result(R,ok,7,quiz3);const a=ord[i];
  R.innerHTML=`<div class="qtop"><span>${t('qn',{a:i+1,b:7})}</span>${score(ok,bad)}</div><div class="bar"><i style="width:${i/7*100}%"></i></div><h2 style="font-size:clamp(1.4rem,3.5vw,2.2rem)">${t('f1',{o:OA()[a]})}</h2><p class="sub">${t('f2')}</p><div class="tools"><button class="btn alt" id="hint">${t('hint')}</button></div><div class="kbw"><div class="kbs" id="k3">${kbHTML(7,{ov:1,lbl:1})}</div></div><p class="touch">${t('swipe')}</p>`;
  $('#hint').onclick=()=>$('#k3').classList.toggle('tt');
- R.querySelectorAll('.ov').forEach(v=>v.onclick=()=>{if(lock)return;lock=1;const o=+v.dataset.o,g=o===a;v.classList.add(g?'good':'bad');if(!g)R.querySelector(`.ov[data-o="${a}"]`).classList.add('good');g?ok++:bad++;arp(o);fb(g);setTimeout(()=>{i++;lock=0;d()},1500)})})()}
+ R.querySelectorAll('.ov').forEach(v=>v.onclick=()=>{if(lock)return;lock=1;const o=+v.dataset.o,g=o===a;v.classList.add(g?'good':'bad');if(!g)R.querySelector(`.ov[data-o="${a}"]`).classList.add('good');g?ok++:bad++;g&&arp(o);fb(g,1);setTimeout(()=>{i++;lock=0;d()},1500)})})()}
 let G={sec:60,online:true,acc:false};
 const nm=(k,a)=>a?(L=='en'?NN()[k]+(a>0?'♯':'♭'):NN()[k]+'-'+t(a>0?'sharp':'flat')):NN()[k];
 function setup4(){const R=$('#q4');R.innerHTML=`<h2>${t('gt')}</h2><p class="sub">${t('gs')}</p><div class="setup"><h4>${t('gtime')}</h4><div class="chips">${[30,60,120,180].map((s,i)=>`<button class="chip${s==G.sec?' on':''}" data-s="${s}">${LG[L].cs[i]}</button>`).join('')}</div>
@@ -196,8 +196,8 @@ function play4(){const R=$('#q4');let ok=0,bad=0,T=null,end=Date.now()+G.sec*1e3
  R.innerHTML=`<div class="hud"><div class="timer" id="tmr"></div><span id="sc"></span><button class="btn alt" id="stop" style="padding:10px 22px">${t('stop')}</button></div><div class="target" id="tg"></div>${G.online?`<div class="kbw" style="padding-top:8px"><div class="kbs" id="k4" style="--mw:1180px">${kbHTML(7,{lbl:1})}</div></div><p class="touch">${t('swipe')}</p>`:'<div class="jg"><button id="yes" style="background:#22c55e">✓</button><button id="no" style="background:#ef4444">✗</button></div>'}`;
  const gen=()=>{let n;do{const o=Math.random()*7|0;if(G.acc&&Math.random()<.45){const k=[0,1,3,4,5][Math.random()*5|0],f=Math.random()<.5;n={o,s:BS[k],b:1,k:f?k+1:k,a:f?-1:1}}else{const k=Math.random()*7|0;n={o,k,s:WS[k],b:0,a:0}}}while(T&&n.o==T.o&&n.s==T.s);return n},
  nx=()=>{T=gen();$('#tg').innerHTML=t('tg',{n:'<em>'+nm(T.k,T.a)+'</em>',o:OG()[T.o]});$('#sc').innerHTML=score(ok,bad)},
- ans=g=>{if(done)return;g?ok++:bad++;fb(g);nx()};nx();
- if(G.online)$('#k4').onclick=e=>{const k=e.target.closest('.bk,.wk');if(!k||done)return;const o=+k.dataset.o;if(k.classList.contains('bk')){note(o,+k.dataset.s);return G.acc&&ans(!!T.b&&o==T.o&&+k.dataset.s==T.s)}note(o,WS[+k.dataset.n]);ans(!T.b&&o==T.o&&+k.dataset.n==T.k)};
+ ans=g=>{if(done)return;g?ok++:bad++;fb(g,1);nx()};nx();
+ if(G.online)$('#k4').onclick=e=>{const k=e.target.closest('.bk,.wk');if(!k||done)return;const o=+k.dataset.o;if(k.classList.contains('bk')){const g=G.acc&&!!T.b&&o==T.o&&+k.dataset.s==T.s;if(!G.acc||g)note(o,+k.dataset.s);return G.acc&&ans(g)}const g=!T.b&&o==T.o&&+k.dataset.n==T.k;if(g)note(o,WS[+k.dataset.n]);ans(g)};
  else{$('#yes').onclick=()=>ans(1);$('#no').onclick=()=>ans(0)}
  const fin=()=>{if(done)return;done=1;clearInterval(iv);const m=document.createElement('div');m.className='modal';
   m.innerHTML=`<div class="card res" style="max-width:520px"><h2>${t('up')}</h2><p>${t('res',{t:tm(G.sec),n:ok,e:bad})}</p><div class="big" style="font-size:2.2rem">${bad==0&&ok>0?t('g1'):ok>=bad*3&&ok>0?t('g2'):t('g3')}</div><br><button class="btn" id="again">${t('again2')}</button> <button class="btn alt" id="chg">${t('set')}</button></div>`;
