@@ -4,356 +4,194 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Octaves · Brio Music Studio</title>
-<link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
- --ink:#23212b;--mut:#5b6073;--line:#e2e4ec;--bg:#f3f4f8;--card:#fff;
- --ind:#4f46e5;--ind-d:#4338ca;--ind-s:#eef0ff;--ok:#16a34a;--bad:#dc2626;
- --r:18px;--sh:0 1px 2px rgba(35,33,43,.05),0 8px 24px rgba(35,33,43,.06);
- --w:1240px;--gut:24px}
-*{box-sizing:border-box;margin:0}
-html{-webkit-text-size-adjust:100%}
-body{font:500 1rem/1.55 Montserrat,system-ui,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;display:flex;flex-direction:column}
-h1,h2,h3,h4{font-family:Montserrat,sans-serif;line-height:1.2}
-button,select,input{font-family:inherit}
-button,.ov,.wk,.bk{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-:focus-visible{outline:3px solid #a5b4fc;outline-offset:2px}
-
-/* ---------- Header (static) ---------- */
-header{background:#fff;border-bottom:1px solid var(--line)}
-.top{max-width:var(--w);margin:auto;padding:14px var(--gut);display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:12px;border:0;background:none;cursor:pointer;color:var(--ink);text-align:left;padding:0;border-radius:12px}
-.mark{width:40px;height:40px;border-radius:12px;background:#2a2825;display:grid;place-items:center}
-.brand b{display:block;font-size:1.2rem;font-weight:800;letter-spacing:-.01em;line-height:1.1}
-.brand small{display:block;font-size:.75rem;font-weight:600;color:var(--mut);margin-top:2px}
-.ctl{display:flex;align-items:center;gap:10px}
-.lang{height:40px;border:1px solid var(--line);border-radius:12px;padding:0 12px;font-weight:600;font-size:.88rem;background:#fff;color:var(--ink);cursor:pointer}
-.vol{height:40px;display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:12px;padding:0 12px}
-.vol button{border:0;background:none;cursor:pointer;font-size:1.05rem;line-height:1;padding:4px}
-.vol input{width:84px;accent-color:var(--ind)}
-.navw{max-width:var(--w);margin:auto;padding:0 var(--gut)}
-nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
-nav::-webkit-scrollbar{display:none}
-nav button{display:flex;align-items:center;gap:8px;border:0;background:none;cursor:pointer;white-space:nowrap;padding:12px 16px;font-weight:600;font-size:.92rem;color:var(--mut);border-bottom:3px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s}
-nav button:hover{color:var(--ink)}
-nav button.on{color:var(--ind);border-bottom-color:var(--ind)}
-
-/* ---------- Layout ---------- */
-main{flex:1;width:100%;max-width:var(--w);margin:0 auto;padding:32px var(--gut) 48px}
-.pg{display:none}.pg.on{display:block;animation:fi .25s ease}
-@keyframes fi{from{opacity:0}}
-.pg>.card{max-width:100%}
-#home{display:grid;gap:24px;grid-template-columns:minmax(0,1fr)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:32px;box-shadow:var(--sh)}
-.narrow{max-width:960px;margin:0 auto}
-.ph{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--line)}
-.ph h1{font-size:clamp(1.5rem,3vw,1.9rem);font-weight:800;letter-spacing:-.015em}
-.ph p{color:var(--mut);margin-top:6px;max-width:64ch}
-.ch h2{font-size:1.4rem;font-weight:800;letter-spacing:-.01em}
-.sub{color:var(--mut);margin:6px 0 0;max-width:64ch}
-
-/* ---------- Home hero ---------- */
-.hero{background:#2a2825;color:#fff;border-radius:var(--r);padding:44px 40px 36px;box-shadow:var(--sh)}
-.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;letter-spacing:-.025em}
-.lead{font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.5;color:#e7e5e0;max-width:44ch;margin-top:12px}
-.notes{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.nt{min-width:64px;padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;transition:background .15s,border-color .15s}
-.nt:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.5)}
-.nt.pl{animation:ntp .35s}@keyframes ntp{40%{background:var(--ind);border-color:var(--ind);transform:translateY(2px)}}
-.hnote{margin-top:14px;font-size:.88rem;color:#b9b6ae}
-
-/* ---------- Section tiles ---------- */
-.sh{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;margin-bottom:16px}
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.tile{position:relative;aspect-ratio:1/1;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left;padding:24px;border-radius:var(--r);border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;box-shadow:var(--sh);transition:border-color .18s,box-shadow .18s,transform .18s}
-.tile:hover{border-color:var(--tc);box-shadow:0 12px 30px rgba(35,33,43,.12);transform:translateY(-3px)}
-.ti{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--tb);color:var(--tc)}
-.tx b{display:block;font-size:1.15rem;font-weight:800;letter-spacing:-.01em;margin-bottom:6px;line-height:1.25}
-.tx span{display:block;min-height:4.35em;font-size:.88rem;line-height:1.45;color:var(--mut);font-weight:500;padding-right:28px}
-.go{position:absolute;right:20px;bottom:22px;color:var(--tc);transition:transform .18s}
-.tile:hover .go{transform:translateX(4px)}
-
-/* ---------- Piano ---------- */
-.kbw{overflow-x:auto;padding:46px 2px 12px;margin-top:8px;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
-.kbs{position:relative;min-width:var(--mw,1080px)}
-.kb{display:flex;background:#23212b;padding:6px 4px 0;border-radius:12px;box-shadow:0 10px 24px rgba(35,33,43,.28);user-select:none}
-.wk{flex:1;position:relative;height:160px;background:linear-gradient(#fff,#f1f1f5);border:1px solid #cfd0dc;border-top:0;border-radius:0 0 6px 6px;box-shadow:inset 0 -4px 6px rgba(0,0,0,.07)}
-.wk.in{background:linear-gradient(#d3d9ff,#b4bffa)}
-.wk.on{background:#ddd6fe}
-.bk{position:absolute;top:0;right:-30%;width:60%;height:62%;z-index:5;background:linear-gradient(#3b3a48,#0b0b10);border-radius:0 0 4px 4px;box-shadow:2px 3px 5px rgba(0,0,0,.4)}
-.lb{position:absolute;left:0;right:0;bottom:8px;text-align:center;font:800 .64rem Montserrat,system-ui,sans-serif;color:var(--ind);pointer-events:none}
-.ov{position:absolute;top:0;bottom:0;z-index:20;cursor:pointer;border:2px solid transparent;border-radius:8px;transition:background .2s,border-color .2s;--h:240}
-.ov:hover,.ov.hl{background:hsl(var(--h) 85% 55%/.28);border-color:hsl(var(--h) 75% 45%)}
-.ov.good{background:rgba(34,197,94,.42);border-color:#16a34a}.ov.bad{background:rgba(239,68,68,.42);border-color:#dc2626}
-/* octave names: hidden by default, shown only in .tt (home always, names-quiz only after the hint) */
-.ot{position:absolute;top:-36px;left:0;right:0;text-align:center;font:800 .88rem Montserrat,system-ui,sans-serif;color:#3730a3;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
-.tt .ot{opacity:1}
-.tt .ov:hover .ot{transform:scale(1.18);color:hsl(var(--h) 75% 36%)}
-.touch{display:none;color:var(--mut);font-size:.85rem;margin-top:6px}
-
-/* ---------- Mini keyboards (octave limits) ---------- */
-.mini .kb{padding:4px 3px 0;border-radius:8px;box-shadow:0 4px 10px rgba(35,33,43,.22)}
-.mini .wk{height:clamp(72px,8vw,104px)}.mini .bk{height:60%}
-
-/* ---------- Quiz ---------- */
-.qtop{display:flex;justify-content:space-between;align-items:center;font-weight:600;color:var(--mut);font-size:.92rem;margin-bottom:10px}
-.score{display:flex;gap:8px}.score b{padding:3px 12px;border-radius:99px;font-weight:700}.g{background:#dcfce7;color:#15803d}.r{background:#fee2e2;color:#b91c1c}
-.bar{height:6px;background:#e5e7f0;border-radius:9px;overflow:hidden;margin-bottom:28px}.bar i{display:block;height:100%;background:var(--ind);border-radius:9px;transition:width .4s}
-.qq{font-size:clamp(1.25rem,2.6vw,1.65rem);font-weight:800;letter-spacing:-.01em;margin-bottom:22px}
-.qq.big2{margin-bottom:6px}
-.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.opts.kbopts{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.opt{font:700 1.08rem Montserrat,system-ui,sans-serif;padding:18px 14px;border-radius:14px;border:1.5px solid var(--line);background:#fff;cursor:pointer;color:var(--ink);transition:border-color .15s,box-shadow .15s,transform .15s}
-.opt:hover{border-color:var(--ind);box-shadow:0 8px 20px rgba(79,70,229,.14);transform:translateY(-2px)}
-.kbopts .opt{padding:16px}
-.opt *{pointer-events:none}
-.opt.good{background:#dcfce7;border-color:var(--ok)}.opt.bad{background:#fee2e2;border-color:var(--bad);animation:sh .4s}
-@keyframes sh{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
-.tools{display:flex;gap:12px;margin:14px 0 4px}
-
-.btn{border:0;cursor:pointer;font:700 1rem Montserrat,system-ui,sans-serif;color:#fff;padding:13px 28px;border-radius:12px;background:var(--ind);box-shadow:0 6px 16px rgba(79,70,229,.28);transition:background .15s,transform .15s}
-.btn:hover{background:var(--ind-d);transform:translateY(-1px)}
-.btn.alt{background:#fff;color:var(--ind);border:1.5px solid #c7ccf7;box-shadow:none}.btn.alt:hover{background:var(--ind-s)}
-.btn.lg{font-size:1.1rem;padding:16px 44px}
-.res{text-align:center;padding:12px 0}
-.res .big{font-size:4.2rem;font-weight:800;color:var(--ind);letter-spacing:-.02em;line-height:1.1}
-.res p{font-size:1.2rem;font-weight:600;margin:12px 0 26px}
-.res .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.verdict{font-size:1.8rem;font-weight:800;color:var(--ind);margin-bottom:24px}
-
-/* ---------- Feedback overlay ---------- */
-#fb{position:fixed;inset:0;z-index:100;display:none;place-items:center;pointer-events:none}
-#fb.show{display:grid}
-#fb svg{width:170px;height:170px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.35));animation:pop 1s forwards}
-#fb path{stroke-dasharray:60;stroke-dashoffset:60;animation:dr .45s .15s forwards}
-@keyframes dr{to{stroke-dashoffset:0}}@keyframes pop{0%{transform:scale(0)}25%{transform:scale(1.15)}40%,75%{transform:scale(1)}100%{transform:scale(1.4);opacity:0}}
-#fb.x svg{animation:xs .9s forwards}@keyframes xs{0%{transform:scale(0)}20%{transform:scale(1.2)}35%{transform:scale(1.2) translateX(-16px)}50%{transform:scale(1.2) translateX(16px)}65%{transform:scale(1.2) translateX(-8px)}100%{transform:scale(1);opacity:0}}
-
-/* ---------- Game ---------- */
-.setup{max-width:640px}
-.fld{margin-bottom:28px}
-.fld h4{font-size:1rem;font-weight:700;margin-bottom:12px}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 20px;font:700 .95rem Montserrat,system-ui,sans-serif;cursor:pointer;color:var(--ink);transition:.15s}
-.chip:hover{border-color:var(--ind)}
-.chip.on{background:var(--ind);color:#fff;border-color:var(--ind)}
-.own{display:flex;align-items:center;flex-wrap:wrap;gap:10px 12px;margin-top:16px}
-.ownl{font-weight:600;color:var(--mut);margin-right:4px}
-.num{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--mut)}
-.num input{width:76px;height:44px;padding:0 10px;border-radius:12px;border:1.5px solid var(--line);font:700 1.05rem Montserrat,system-ui,sans-serif;text-align:center;color:var(--ink);background:#fff}
-.num input:focus{outline:none;border-color:var(--ind);box-shadow:0 0 0 3px #dfe2fd}
-.rng{width:100%;font-size:.82rem;color:var(--mut)}
-.sw{display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:14px;background:#f6f6fb;border:1px solid var(--line);cursor:pointer;font-weight:500;font-size:.95rem;line-height:1.45}
-.sw+.sw{margin-top:10px}
-.sw input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--ind)}
-.act{margin-top:8px}
-.hud{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
-.timer{font:800 2rem Montserrat,system-ui,sans-serif;font-variant-numeric:tabular-nums;background:#23212b;color:#fff;padding:6px 24px;border-radius:12px;min-width:120px;text-align:center}
-.timer.low{background:var(--bad);animation:pl2 1s infinite}@keyframes pl2{50%{opacity:.7}}
-#q4 .target{display:block;width:fit-content;margin:0 auto 8px;text-align:center;font:800 clamp(1.4rem,3.6vw,2.2rem) Montserrat,system-ui,sans-serif;padding:16px 32px;border-radius:16px;background:var(--ind-s);border:1.5px solid #c7ccf7}
-.target em{font-style:normal;color:var(--ind)}
-.jg{display:flex;justify-content:center;gap:28px;margin:22px 0}
-.jg button{width:104px;height:104px;border-radius:50%;border:0;cursor:pointer;font-size:3rem;color:#fff;box-shadow:0 10px 22px rgba(0,0,0,.22);transition:.15s}.jg button:active{transform:scale(.93)}
-.modal{position:fixed;inset:0;z-index:90;background:rgba(35,33,43,.6);display:grid;place-items:center;padding:16px}
-.modalc{max-width:480px;width:100%;padding:36px 28px}
-.modalc h2{font-size:1.6rem;font-weight:800}
-
-/* ---------- Footer (compact) ---------- */
-footer{background:#fff;border-top:1px solid var(--line)}
-.fin{max-width:var(--w);margin:auto;padding:14px var(--gut);display:flex;align-items:center;justify-content:space-between;gap:16px}
-.fl{display:flex;align-items:center;gap:16px;min-width:0}
-.flogo{height:30px;width:auto;display:block;flex:none}
-.copy{font-size:.8rem;font-weight:500;color:var(--mut);padding-left:16px;border-left:1px solid var(--line)}
-.soc{display:flex;gap:8px}
-.soc a{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:var(--mut);border:1px solid var(--line);transition:.15s}
-.soc a:hover{background:var(--ind);border-color:var(--ind);color:#fff}
-.soc svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-
-/* ---------- Responsive ---------- */
-@media(max-width:1000px){.tiles{grid-template-columns:repeat(2,1fr)}.tile{aspect-ratio:auto;min-height:210px;gap:28px}}
-@media(max-width:640px){
- :root{--gut:14px}
- .top{padding:10px var(--gut)}.brand small{display:none}.brand b{font-size:1.1rem}.mark{width:36px;height:36px}
- .vol input{display:none}.vol{padding:0 6px}.lang{padding:0 8px;font-size:.82rem}.ctl{gap:6px}
- nav button{padding:12px 12px}nav button svg{display:none}
- main{padding:18px var(--gut) 32px}
- .card{padding:20px 16px;border-radius:16px}
- .hero{padding:28px 20px 24px}.nt{min-width:0;flex:1 1 calc(25% - 10px);padding:12px 8px}
- .wk{height:124px}
- .tiles{gap:12px}.tile{padding:16px;min-height:190px}.ti{width:44px;height:44px}.tx b{font-size:1rem}.tx span{font-size:.8rem;padding-right:0}.go{display:none}
- .opts,.opts.kbopts{grid-template-columns:1fr}.kbopts{max-width:420px;margin:0 auto}
- .opt{padding:15px 10px;font-size:1rem}
- .touch{display:block}.timer{font-size:1.6rem}.res .big{font-size:3rem}.jg button{width:88px;height:88px}
- .fin{flex-wrap:wrap;padding:12px var(--gut)}.copy{border:0;padding:0;flex-basis:100%;order:3}.fl{flex-wrap:wrap;gap:8px}
+ --bg:#f7f3fb;--paper:#fff;--ink:#29263a;--muted:#756f86;
+ --lilac:#c8a8e9;--lav:#c3c7f3;--pink:#e3aadd;--rose:#f5bcba;
+ --blush:#f3dcdc;--soft:#f4e7fb;--accent:#7456b8;--accent2:#c35c9f;
+ --green:#31a86b;--red:#d95867;--yellow:#e9a52d;--line:#e9e2f1;
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:Montserrat,sans-serif;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;background:
+ radial-gradient(circle at 10% 10%,#f4e7fb 0,transparent 28%),
+ radial-gradient(circle at 90% 15%,#f3dcdc 0,transparent 25%),
+ linear-gradient(135deg,#faf8fd,#f7f2fb 55%,#fdf7f8);overflow-x:hidden}
+h1,h2,h3,h4,.big,.btn,.chip,.navbtn{font-family:Nunito,sans-serif}
+button,input,select{font:inherit}
+button{touch-action:manipulation}
+header{position:relative;z-index:20;background:rgba(255,255,255,.88);border-bottom:1px solid var(--line);box-shadow:0 8px 24px rgba(72,55,101,.06)}
+.hin{max-width:1240px;margin:auto;min-height:76px;padding:10px 22px;display:grid;grid-template-columns:220px 1fr auto;align-items:center;gap:20px}
+.brand{border:0;background:none;text-align:left;cursor:pointer;display:flex;align-items:center;gap:10px;color:var(--ink);font:900 1.45rem Nunito}
+.brand .mark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--lilac),var(--lav));font-size:1.35rem}
+.brand small{display:block;font:800 .58rem Montserrat;letter-spacing:.18em;color:var(--muted);margin-top:-2px}
+nav{display:flex;justify-content:center;gap:7px}
+.navbtn{border:0;background:transparent;color:#655e73;padding:11px 14px;border-radius:14px;cursor:pointer;font-weight:900;font-size:.86rem;transition:.2s;white-space:nowrap}
+.navbtn:hover{background:var(--soft);color:var(--accent)}
+.navbtn.on{background:var(--ink);color:white;box-shadow:0 8px 18px rgba(41,38,58,.15)}
+.ctl{display:flex;align-items:center;gap:8px}
+.lang{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 10px;color:var(--ink);font-weight:800;font-size:.78rem}
+.vol{height:42px;display:flex;align-items:center;gap:5px;padding:0 10px;border:1px solid var(--line);background:#fff;border-radius:12px}
+.vol button{border:0;background:none;cursor:pointer;font-size:1rem}
+.vol input{width:74px;accent-color:var(--accent)}
+main{flex:1;width:100%;max-width:1240px;margin:auto;padding:34px 22px 50px}
+.pg{display:none;animation:rise .38s ease}.pg.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero{min-height:600px;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.82fr);align-items:center;gap:50px;padding:45px 34px}
+.hero-copy{max-width:650px;padding-left:25px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-size:.76rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:15px}
+.hero h1{font-size:clamp(3.1rem,7vw,6rem);line-height:.9;letter-spacing:-.045em;margin-bottom:22px}
+.hero h1 span{display:block;background:linear-gradient(90deg,#7250b7,#b85b9c 62%,#df817f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:1.05rem;line-height:1.75;color:var(--muted);max-width:570px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{border:0;cursor:pointer;font-weight:900;font-size:1.02rem;color:#fff;padding:14px 24px;border-radius:15px;background:linear-gradient(135deg,#7353b5,#bf5b9e);box-shadow:0 12px 25px rgba(116,86,184,.25);transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(116,86,184,.3)}
+.btn.alt{background:#fff;color:var(--accent);border:1px solid var(--line);box-shadow:none}
+.btn.soft{background:var(--soft);color:var(--accent);box-shadow:none}
+.hero-art{position:relative;min-height:420px;display:grid;place-items:center}
+.hero-glow{position:absolute;width:350px;height:350px;border-radius:50%;background:linear-gradient(135deg,var(--soft),var(--blush),#fff);filter:blur(2px)}
+.treble{position:relative;font-family:Georgia,serif;font-size:20rem;line-height:.7;color:#342d40;transform:rotate(-4deg);text-shadow:10px 18px 0 rgba(200,168,233,.28)}
+.home-games{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+.game-link{border:1px solid var(--line);background:rgba(255,255,255,.82);border-radius:20px;padding:20px;text-align:left;cursor:pointer;transition:.2s}
+.game-link:hover{transform:translateY(-3px);border-color:#d6c3ed;box-shadow:0 12px 30px rgba(72,55,101,.09)}
+.game-link .ico{font-size:1.5rem}.game-link strong{display:block;font:900 1rem Nunito;margin:9px 0 4px}.game-link span{font-size:.78rem;color:var(--muted);line-height:1.4}
+.panel{background:rgba(255,255,255,.9);border:1px solid rgba(226,217,237,.95);border-radius:28px;box-shadow:0 20px 50px rgba(65,45,90,.09);overflow:hidden}
+.panel-head{padding:28px 32px 18px;display:flex;align-items:end;justify-content:space-between;gap:20px}
+.panel-head h2{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1}.sub{color:var(--muted);line-height:1.6;font-size:.94rem;margin-top:9px}
+.content{padding:0 32px 34px}
+.setup-shell{max-width:760px;margin:0 auto;padding:18px 0 4px}
+.setup-title{text-align:center;margin:10px 0 22px}.setup-title .icon{font-size:2.2rem}.setup-title h2{font-size:2.1rem}.setup-title p{color:var(--muted);margin-top:7px}
+.setting-block{margin-top:22px}.setting-label{font:900 .88rem Nunito;text-transform:uppercase;letter-spacing:.08em;color:#635b73;margin-bottom:11px}
+.time-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.chip{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 8px;color:var(--ink);cursor:pointer;font:900 .92rem Nunito;transition:.2s}.chip:hover{border-color:var(--lilac)}.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.custom-time{margin-top:9px;display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.84rem}.custom-time input{width:90px;border:1px solid var(--line);border-radius:11px;padding:9px;font-weight:800}
+.modes{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.mode{position:relative;text-align:left;border:1px solid var(--line);background:#fff;border-radius:17px;padding:16px 16px 15px 48px;cursor:pointer;transition:.2s;min-height:86px}
+.mode:hover{border-color:#cfb5e8;transform:translateY(-1px)}.mode.on{border:2px solid var(--accent);background:linear-gradient(135deg,#fbf8ff,#fdf7fb);padding-left:47px;box-shadow:0 8px 22px rgba(116,86,184,.09)}
+.mode input{position:absolute;left:17px;top:20px;width:21px;height:21px;accent-color:var(--accent)}
+.mode strong{display:block;font:900 .98rem Nunito}.mode span{display:block;color:var(--muted);font-size:.76rem;line-height:1.45;margin-top:3px}
+.star{position:absolute;right:13px;top:11px;color:#c58f27;font-size:.85rem}
+.start-row{text-align:center;margin:26px 0 4px}.start-row .btn{min-width:190px;font-size:1.15rem;padding:15px 28px}
+.inline-note{text-align:center;color:var(--muted);font-size:.76rem;margin-top:10px}
+.quiz-card{padding:30px 32px}.qtop{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.83rem;font-weight:800;margin-bottom:11px}.score{display:flex;gap:6px}.score b{padding:5px 9px;border-radius:10px;font-size:.75rem}.g{background:#e4f6ec;color:#228250}.r{background:#fbe6e9;color:#b44351}
+.bar{height:7px;background:#eeeaf3;border-radius:10px;overflow:hidden;margin-bottom:26px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--lilac),var(--accent2));transition:.3s}
+.q h3{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;margin-bottom:20px}.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.opt{font:900 1rem Nunito;padding:17px 14px;border-radius:16px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--ink);transition:.2s}.opt:hover{transform:translateY(-2px);border-color:var(--lilac);box-shadow:0 9px 18px rgba(72,55,101,.08)}.opt.good{background:#e7f7ee;border-color:#6dc598}.opt.bad{background:#fce9ec;border-color:#e88994;animation:shake .35s}@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.kbw{overflow:auto;padding:36px 3px 14px}.kbs{position:relative;min-width:var(--mw,1080px)}.kb{display:flex;background:#292635;padding:5px 3px 0;border-radius:13px;box-shadow:0 15px 28px rgba(43,34,55,.22);user-select:none}.wk{flex:1;position:relative;height:145px;background:linear-gradient(#fff,#f2eff7);border:1px solid #d8d1df;border-top:0;border-radius:0 0 6px 6px}.wk.in{background:linear-gradient(#eee7fa,#ddd2f3)}.wk.on{background:#e7d9f8}.bk{position:absolute;top:0;right:-30%;width:60%;height:61%;z-index:5;background:linear-gradient(#4a4455,#17151c);border-radius:0 0 5px 5px;box-shadow:2px 3px 5px rgba(0,0,0,.3)}.lb{position:absolute;left:0;right:0;bottom:8px;text-align:center;font:900 .62rem Montserrat;color:#765ab2;pointer-events:none}.ov{position:absolute;top:0;bottom:0;z-index:20;cursor:pointer;border:2px solid transparent;border-radius:8px;transition:.2s;--h:260}.ov:hover,.ov.hl{background:hsl(var(--h) 85% 65%/.27);border-color:hsl(var(--h) 70% 55%)}.ov.good{background:#62cf95aa;border-color:#35a96b}.ov.bad{background:#eb7680aa;border-color:#d95867}.ot{position:absolute;top:-31px;left:0;right:0;text-align:center;font:900 .8rem Nunito;color:#7353b5;opacity:0}.tt .ot,.ov:hover .ot,.ov.hl .ot{opacity:1}.mini .wk{height:78px}.mini .bk{height:60%}
+.def{display:inline-block;margin-top:18px;padding:16px 22px;border-radius:16px;background:linear-gradient(135deg,#fbf8ff,#fff7f8);border:1px solid var(--line);color:var(--muted)}.def b{display:block;font:900 1.35rem Nunito;color:var(--accent);margin-bottom:3px}
+.hud{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;margin-bottom:14px}.hud-right{text-align:right}.timer{font:900 2rem Nunito;background:var(--ink);color:#fff;padding:7px 19px;border-radius:14px;display:inline-block;min-width:126px;text-align:center}.timer.low{background:var(--red);animation:pulse 1s infinite}@keyframes pulse{50%{transform:scale(1.04);box-shadow:0 0 0 7px rgba(217,88,103,.12)}}
+.target{font:900 clamp(1.55rem,4vw,2.5rem) Nunito;padding:16px 27px;border-radius:19px;background:linear-gradient(135deg,#fbf8ff,#fff6f7);border:1px solid #e3d6ef;display:block;text-align:center;margin:8px auto 8px;max-width:max-content}.target em{font-style:normal;color:var(--accent)}
+.jg{display:flex;justify-content:center;gap:18px;margin:30px 0}.jg button{width:112px;height:112px;border-radius:28px;border:0;cursor:pointer;font-size:3rem;color:#fff;box-shadow:0 12px 22px rgba(0,0,0,.16);transition:.15s}.jg button:active{transform:scale(.94)}
+#fb{position:fixed;inset:0;z-index:100;display:none;place-items:center;pointer-events:none}#fb.show{display:grid}#fb svg{width:160px;height:160px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.2));animation:pop 1s forwards}#fb path{stroke-dasharray:60;stroke-dashoffset:60;animation:dr .45s .15s forwards}@keyframes dr{to{stroke-dashoffset:0}}@keyframes pop{0%{transform:scale(.3);opacity:0}25%{transform:scale(1.12);opacity:1}70%{transform:scale(1)}100%{transform:scale(1.25);opacity:0}}
+.modal{position:fixed;inset:0;z-index:90;background:rgba(41,38,58,.52);backdrop-filter:blur(8px);display:grid;place-items:center;padding:18px}.modal-card{width:min(500px,100%);background:#fff;border-radius:26px;padding:32px;text-align:center;box-shadow:0 30px 80px rgba(35,25,48,.25)}.modal-card h2{font-size:2rem}.modal-card p{color:var(--muted);line-height:1.6;margin:10px 0 20px}
+.warning{position:fixed;top:94px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:85;opacity:0;pointer-events:none;background:#fff;border:1px solid #efc3c8;border-radius:18px;padding:14px 20px;box-shadow:0 15px 35px rgba(60,35,45,.16);text-align:center;transition:.3s}.warning.show{opacity:1;transform:translateX(-50%) translateY(0);animation:wobble .8s ease}.warning strong{display:block;color:#bd4958;font:900 1rem Nunito}.warning span{color:var(--muted);font-size:.76rem}@keyframes wobble{20%{transform:translateX(-50%) scale(1.04)}45%{transform:translateX(-50%) rotate(-1deg)}70%{transform:translateX(-50%) rotate(1deg)}}
+.two-oct-keyboard{max-width:980px;margin:15px auto 0}.two-oct-keyboard .kbs{min-width:0}.two-oct-keyboard .wk{height:142px}.two-oct-keyboard .lb{font-size:.58rem}.kbd-note{font:800 .74rem Montserrat;color:var(--muted);text-align:center;margin-top:8px}
+.keyboard-mode{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0;color:var(--muted);font-size:.8rem}.keyboard-mode b{color:var(--accent)}
+footer{margin-top:20px;background:#2e2a39;color:#fff;padding:38px 22px 30px}.finner{max-width:1240px;margin:auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:30px}.flogo{width:170px;filter:invert(1) brightness(4);opacity:.92}.copy{color:#d9d3e2;font-size:.76rem;line-height:1.6}.soc{display:flex;justify-content:flex-end;gap:9px}.soc a{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#464052;color:#fff;transition:.2s}.soc a:hover{background:#7d63b9;transform:translateY(-2px)}.soc svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:980px){.hin{grid-template-columns:1fr auto}.brand{grid-column:1}.ctl{grid-column:2;grid-row:1}nav{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow:auto;padding-bottom:2px}.hero{grid-template-columns:1fr;text-align:center;padding:30px 15px;min-height:auto}.hero-copy{padding:0;margin:auto}.hero p{margin:auto}.hero-actions{justify-content:center}.hero-art{min-height:270px;order:-1}.treble{font-size:13rem}.home-games{grid-template-columns:repeat(2,1fr)}.finner{grid-template-columns:1fr;text-align:center}.soc{justify-content:center}}
+@media(max-width:640px){header{position:relative}.hin{padding:9px 12px}.brand{font-size:1.15rem}.brand .mark{width:36px;height:36px}.brand small{display:none}.ctl{gap:5px}.lang{max-width:92px}.vol input{width:52px}main{padding:18px 10px 35px}.hero{padding:20px 8px}.hero h1{font-size:3.2rem}.hero-art{min-height:220px}.treble{font-size:10rem}.home-games{grid-template-columns:1fr 1fr;gap:9px}.game-link{padding:15px}.panel-head{padding:22px 18px 13px}.content,.quiz-card{padding:0 18px 24px}.modes{grid-template-columns:1fr}.time-row{grid-template-columns:repeat(2,1fr)}.hud{grid-template-columns:1fr auto}.hud-right{grid-column:1/-1;text-align:center;order:3}.timer{font-size:1.65rem}.opts{grid-template-columns:1fr}.kbw{padding-top:34px}.jg button{width:88px;height:88px}.two-oct-keyboard .wk{height:112px}.warning{top:82px;width:calc(100% - 24px)}footer{padding:30px 15px}.flogo{width:145px}}
 </style>
 </head>
 <body>
-<header>
- <div class="top">
-  <button class="brand" id="brand" aria-label="Octaves — Brio Music Studio">
-   <span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><rect x="3" y="4" width="18" height="4" rx="1.5"/><rect x="3" y="10" width="18" height="4" rx="1.5"/><rect x="3" y="16" width="18" height="4" rx="1.5"/></svg></span>
-   <span><b>Octaves</b><small>Brio Music Studio</small></span>
-  </button>
-  <div class="ctl"><select class="lang" id="lang" aria-label="Language"><option value="uk">🇺🇦 Українська</option><option value="ru">🇷🇺 Русский</option><option value="en">🇬🇧 English</option></select>
-   <div class="vol"><button id="mute" aria-label="Volume">🔊</button><input id="vol" type="range" min="0" max="100" value="70" aria-label="Volume"></div></div>
- </div>
- <div class="navw"><nav id="nav" aria-label="Sections"></nav></div>
-</header>
+<header><div class="hin">
+ <button class="brand" onclick="location.reload()" aria-label="На головну"><div class="mark">♬</div><div>Octaves<small>BRIO MUSIC STUDIO</small></div></button>
+ <nav id="nav"></nav>
+ <div class="ctl"><select class="lang" id="lang"><option value="uk">🇺🇦 Українська</option><option value="ru">🇷🇺 Русский</option><option value="en">🇬🇧 English</option></select><div class="vol"><button id="mute" aria-label="Звук">🔊</button><input id="vol" type="range" min="0" max="100" value="70"></div></div>
+</div></header>
+
 <main>
- <div id="fb"></div>
- <section class="pg on" id="p0"><div id="home"></div></section>
- <section class="pg" id="p1"><div class="card narrow q" id="q1"></div></section>
- <section class="pg" id="p2"><div class="card narrow q" id="q2"></div></section>
- <section class="pg" id="p3"><div class="card" id="q3"></div></section>
- <section class="pg" id="p4"><div class="card" id="q4"></div></section>
-</main>
-<footer><div class="fin">
- <div class="fl"><img class="flogo" src="logo.svg" alt="Brio Music Studio"><p class="copy">© Мар'яна Вихрист (Mariana Vykhryst)</p></div>
- <div class="soc">
-  <a href="https://www.instagram.com/brio_musicstudio/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
-  <a href="https://t.me/briomusicstudio" aria-label="Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></a>
-  <a href="https://www.tiktok.com/@brio_music_studio_" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3v11.5a4 4 0 1 1-4-4M14 3c.4 2.8 2.2 4.6 5 5"/></svg></a>
+<div id="fb"></div><div id="warning" class="warning"><strong id="warnTitle">Час спливає!</strong><span id="warnText">Поквапся, залишилось зовсім мало часу.</span></div>
+
+<section class="pg on" id="p0">
+ <div class="panel hero">
+  <div class="hero-copy">
+   <div class="eyebrow">🎼 BRIO MUSIC STUDIO · інтерактивний тренажер</div>
+   <h1>Вивчай ноти.<span>Грай упевнено.</span></h1>
+   <p>Інтерактивна практика для розвитку нотної орієнтації, відчуття клавіатури та швидкої реакції. Обирай вправу, ускладнюй рівень і тренуйся у своєму темпі.</p>
+   <div class="hero-actions"><button class="btn" onclick="go(3)">⚡ Почати гру</button><button class="btn alt" onclick="go(1)">🎼 Дослідити ноти</button></div>
+  </div>
+  <div class="hero-art"><div class="hero-glow"></div><div class="treble">𝄞</div></div>
  </div>
-</div></footer>
+ <div class="home-games">
+  <button class="game-link" onclick="go(0)"><span class="ico">🎼</span><strong>Знайомство та тест</strong><span>Базові питання про октаву.</span></button>
+  <button class="game-link" onclick="go(1)"><span class="ico">↔️</span><strong>Межі октави</strong><span>Знайди правильний діапазон.</span></button>
+  <button class="game-link" onclick="go(2)"><span class="ico">🔍</span><strong>Назви октав</strong><span>Тренуй орієнтацію на клавіатурі.</span></button>
+  <button class="game-link" onclick="go(3)"><span class="ico">⚡</span><strong>Гра на швидкість</strong><span>Реагуй швидше з кожним раундом.</span></button>
+ </div>
+</section>
+
+<section class="pg" id="p1"><div class="panel"><div class="panel-head"><div><h2>Межі октави</h2><p class="sub">Знайди правильну октаву на клавіатурі.</p></div></div><div class="content" id="q2"></div></div></section>
+<section class="pg" id="p2"><div class="panel"><div class="panel-head"><div><h2>Назви октав</h2><p class="sub">Навчися швидко орієнтуватися у регістрах.</p></div></div><div class="content" id="q3"></div></div></section>
+<section class="pg" id="p3"><div class="panel"><div class="panel-head"><div><h2>Гра на швидкість</h2><p class="sub">Знайди потрібну ноту до того, як закінчиться час.</p></div></div><div class="content" id="q4"></div></div></section>
+</main>
+
+<footer><div class="finner"><img class="flogo" src="logo.svg" alt="Brio Music Studio"><p class="copy">© Мар'яна Вихрист · Brio Music Studio<br>Інтерактивний тренажер для занять музикою</p><div class="soc">
+<a href="https://www.instagram.com/brio_musicstudio/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
+<a href="https://t.me/briomusicstudio" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></a>
+<a href="https://www.tiktok.com/@brio_music_studio_" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M14 3v11.5a4 4 0 1 1-4-4M14 3c.4 2.8 2.2 4.6 5 5"/></svg></a>
+</div></div></footer>
+
 <script>
-
-let L='uk';
+let L='uk', ac, mg, vol=.7, muted=false, cur=0;
 const LG={
-uk:{nh:'Головна',n0:'Перевір себе',n1:'Межі октави',n2:'Назви октав',n3:'Гра на швидкість',sec_h:'Розділи',sev:'Сім нот однієї октави. Натисни на ноту, щоб почути її.',
-d0:'П’ять запитань, щоб закріпити, що таке октава.',d1:'Визнач, де октава починається і де закінчується.',d2:'Вивчи назви октав — від контроктави до четвертої.',d3:'Шукай названі ноти на клавіатурі, поки йде час.',
-qs:'Дай відповідь на п’ять запитань — результат побачиш наприкінці.',ls:'Обери клавіатуру, на якій межі октави виділено правильно.',minu:'хв',rng:'Від 10 с до 15 хв',gcustom:'Свій час',
-h0:'Уся клавіатура',h0d:'Наведи курсор (або торкнись) на октаву — вона підсвітиться та зазвучить.',swipe:'👉 Клавіатуру можна гортати вбік. Зручніше повернути телефон горизонтально.',defw:'Октава',defd:'послідовна частина клавіатури від ноти ДО до ноти СІ.',qh:'Перевір себе',qn:'Питання {a} з {b}',
-a1:'Скільки нот в одній октаві?',a2:'Чи є октавою ноти від {x} до {y}?',yes2:'Так, це октава',no2:'Ні, це лише частина октави',a3:'Яка послідовність нот в октаві правильна?',a4:'З якої ноти починається октава?',a5:'Якою нотою закінчується октава?',
-b1:'Де правильно виділено межі октави — від {x} до {y}?',f1:'Знайди {o} октаву',f2:'Клікни на потрібну октаву на клавіатурі.',hint:'💡 Підказка',of:'{a} із {b}',
-p1:'Чудово! Ти справжній музикант! 🎉',p2:'Молодець! Ще трохи практики — і буде ідеально! 🌟',p3:'Не засмучуйся — помилки допомагають вчитись. Спробуй ще раз, у тебе вийде! 💪',again:'Пройти ще раз',
-gt:'Гра на швидкість',gs:'Знайди названу ноту на клавіатурі, поки не вийшов час!',gtime:'⏱ Час гри',gown:'Свій час',sec:'с',gmode:'🎹 Режим',gonl:'Клікабельна клавіатура (онлайн). Вимкни, якщо учень грає на інструменті, а вчитель натискає ✓ / ✗.',gacc:'Грати з дієзами та бемолями ♯ ♭',go:'Поїхали! 🚀',stop:'Зупинити',up:'Час вийшов!',res:'За {t} — {n} нот — {e} помилок',again2:'Грати ще',set:'Налаштування',g1:'ІДЕАЛЬНО! 🏆',g2:'МОЛОДЕЦЬ! 🎉',g3:'Гарна спроба! Тренуйся — і буде ще краще! 💪',
-sharp:'дієз',flat:'бемоль',tg:'{n} {o} октави',mute:'Вимкнути звук',cs:['30 с','1 хв','2 хв','3 хв'],
-on:['Контроктава','Велика','Мала','Перша','Друга','Третя','Четверта'],og:['Контроктави','Великої','Малої','Першої','Другої','Третьої','Четвертої'],oa:['контроктаву','велику','малу','першу','другу','третю','четверту']},
-ru:{nh:'Главная',n0:'Проверь себя',n1:'Границы октавы',n2:'Названия октав',n3:'Игра на скорость',sec_h:'Разделы',sev:'Семь нот одной октавы. Нажми на ноту, чтобы услышать её.',
-d0:'Пять вопросов, чтобы закрепить, что такое октава.',d1:'Определи, где октава начинается и где заканчивается.',d2:'Выучи названия октав — от контроктавы до четвёртой.',d3:'Ищи названные ноты на клавиатуре, пока идёт время.',
-qs:'Ответь на пять вопросов — результат увидишь в конце.',ls:'Выбери клавиатуру, на которой границы октавы выделены правильно.',minu:'мин',rng:'От 10 с до 15 мин',gcustom:'Своё время',
-h0:'Вся клавиатура',h0d:'Наведи курсор (или коснись) на октаву — она подсветится и зазвучит.',swipe:'👉 Клавиатуру можно листать вбок. Удобнее повернуть телефон горизонтально.',defw:'Октава',defd:'последовательная часть клавиатуры от ноты ДО до ноты СИ.',qh:'Проверь себя',qn:'Вопрос {a} из {b}',
-a1:'Сколько нот в одной октаве?',a2:'Является ли октавой ноты от {x} до {y}?',yes2:'Да, это октава',no2:'Нет, это только часть октавы',a3:'Какая последовательность нот в октаве правильная?',a4:'С какой ноты начинается октава?',a5:'Какой нотой заканчивается октава?',
-b1:'Где правильно выделены границы октавы — от {x} до {y}?',f1:'Найди {o} октаву',f2:'Кликни на нужную октаву на клавиатуре.',hint:'💡 Подсказка',of:'{a} из {b}',
-p1:'Отлично! Ты настоящий музыкант! 🎉',p2:'Молодец! Ещё немного практики — и будет идеально! 🌟',p3:'Не расстраивайся — ошибки помогают учиться. Попробуй ещё раз, у тебя получится! 💪',again:'Пройти ещё раз',
-gt:'Игра на скорость',gs:'Найди названную ноту на клавиатуре, пока не вышло время!',gtime:'⏱ Время игры',gown:'Своё время',sec:'с',gmode:'🎹 Режим',gonl:'Кликабельная клавиатура (онлайн). Выключи, если ученик играет на инструменте, а учитель нажимает ✓ / ✗.',gacc:'Играть с диезами и бемолями ♯ ♭',go:'Поехали! 🚀',stop:'Остановить',up:'Время вышло!',res:'За {t} — {n} нот — {e} ошибок',again2:'Играть ещё',set:'Настройки',g1:'ИДЕАЛЬНО! 🏆',g2:'МОЛОДЕЦ! 🎉',g3:'Хорошая попытка! Тренируйся — и будет ещё лучше! 💪',
-sharp:'диез',flat:'бемоль',tg:'{n} {o} октавы',mute:'Выключить звук',cs:['30 с','1 мин','2 мин','3 мин'],
-on:['Контроктава','Большая','Малая','Первая','Вторая','Третья','Четвёртая'],og:['Контроктавы','Большой','Малой','Первой','Второй','Третьей','Четвёртой'],oa:['контроктаву','большую','малую','первую','вторую','третью','четвёртую']},
-en:{nh:'Home',n0:'Test yourself',n1:'Octave limits',n2:'Octave names',n3:'Speed game',sec_h:'Sections',sev:'The seven notes of one octave. Tap a note to hear it.',
-d0:'Five questions to check what an octave is.',d1:'Find where an octave begins and where it ends.',d2:'Learn the octave names, from contra to 4th.',d3:'Find the named notes on the keyboard before time runs out.',
-qs:'Answer five questions — you will see your result at the end.',ls:'Choose the keyboard where the octave limits are marked correctly.',minu:'min',rng:'From 10 s to 15 min',gcustom:'Custom time',
-h0:'The whole keyboard',h0d:'Hover (or tap) an octave — it lights up and plays.',swipe:'👉 Swipe the keyboard sideways. Landscape mode works best on a phone.',defw:'Octave',defd:'a consecutive part of the keyboard from the note C to the note B.',qh:'Test yourself',qn:'Question {a} of {b}',
-a1:'How many notes are in one octave?',a2:'Is the span from {x} to {y} an octave?',yes2:'Yes, it is an octave',no2:'No, it is only part of an octave',a3:'Which note order in an octave is correct?',a4:'Which note does an octave start with?',a5:'Which note does an octave end with?',
-b1:'Which keyboard shows the octave limits correctly — from {x} to {y}?',f1:'Find the {o} octave',f2:'Click the right octave on the keyboard.',hint:'💡 Hint',of:'{a} out of {b}',
-p1:'Excellent! You are a real musician! 🎉',p2:'Well done! A little more practice and it will be perfect! 🌟',p3:'Don’t worry — mistakes help us learn. Try again, you can do it! 💪',again:'Try again',
-gt:'Speed game',gs:'Find the named note on the keyboard before time runs out!',gtime:'⏱ Game time',gown:'Custom time',sec:'s',gmode:'🎹 Mode',gonl:'Clickable keyboard (online). Turn off if the student plays an instrument and the teacher taps ✓ / ✗.',gacc:'Play with sharps and flats ♯ ♭',go:'Let’s go! 🚀',stop:'Stop',up:'Time’s up!',res:'In {t}: {n} notes, {e} mistakes',again2:'Play again',set:'Settings',g1:'PERFECT! 🏆',g2:'WELL DONE! 🎉',g3:'Good try! Keep practising and it gets better! 💪',
-sharp:'sharp',flat:'flat',tg:'{n} of the {o} octave',mute:'Mute',cs:['30 s','1 min','2 min','3 min'],
-on:['Contra','Great','Small','1st','2nd','3rd','4th'],og:['Contra','Great','Small','1st','2nd','3rd','4th'],oa:['contra','great','small','1st','2nd','3rd','4th']}};
-const t=(k,o={})=>(LG[L][k]??LG.uk[k]).replace(/\{(\w+)\}/g,(m,x)=>o[x]),
-NN=()=>L=='en'?['C','D','E','F','G','A','B']:L=='ru'?['ДО','РЕ','МИ','ФА','СОЛЬ','ЛЯ','СИ']:['ДО','РЕ','МІ','ФА','СОЛЬ','ЛЯ','СІ'],ON=()=>LG[L].on,OG=()=>LG[L].og,OA=()=>LG[L].oa;
-
-const $=s=>document.querySelector(s),WS=[0,2,4,5,7,9,11],BS=[1,3,0,6,8,10];
+uk:{n0:'Знайомство',n1:'Межі октави',n2:'Назви октав',n3:'Гра на швидкість',h0:'Уся клавіатура',h0d:'Наведи курсор або торкнись октави — вона підсвітиться та зазвучить.',swipe:'👉 Клавіатуру можна гортати вбік.',defw:'ОКТАВА',defd:'послідовна частина клавіатури від ноти ДО до ноти СІ.',qh:'Перевір себе',qn:'Питання {a} з {b}',a1:'Скільки нот в одній октаві?',a2:'Чи є октавою ноти від {x} до {y}?',yes2:'Так, це октава',no2:'Ні, це лише частина октави',a3:'Яка послідовність нот в октаві правильна?',a4:'З якої ноти починається октава?',a5:'Якою нотою закінчується октава?',b1:'Де правильно виділено межі октави — від {x} до {y}?',f1:'Знайди {o} октаву',f2:'Клікни на потрібну октаву на клавіатурі.',hint:'💡 Підказка',of:'{a} із {b}',p1:'Чудово! Ти справжній музикант! 🎉',p2:'Молодець! Ще трохи практики — і буде ідеально! 🌟',p3:'Не засмучуйся — помилки допомагають вчитись. Спробуй ще раз! 💪',again:'Пройти ще раз',gt:'Гра на швидкість',gs:'Знайди названу ноту на клавіатурі, поки не вийшов час!',gtime:'⏱ Час гри',gown:'Свій час:',sec:'с',gmode:'Рівень складності',go:'Починаємо!',stop:'Зупинити',up:'Час вийшов!',res:'За {t} — {n} нот — {e} помилок',again2:'Грати ще',set:'Змінити налаштування',g1:'ІДЕАЛЬНО! 🏆',g2:'МОЛОДЕЦЬ! 🎉',g3:'Гарна спроба! Тренуйся — і буде ще краще! 💪',sharp:'дієз',flat:'бемоль',tg:'{n} · {o} октава',mute:'Вимкнути звук',cs:['30 с','1 хв','2 хв','3 хв'],start:'СТАРТ',second:'Режим другої октави',mixed:'Додати ноти другої октави',acc:'Додати знаки альтерації',first:'Базовий режим',keyboard:'Грати з клавіатурою',keyboardDesc:'Замість ✓ / ✗ учень натискає потрібну ноту на екранній клавіатурі.',firstDesc:'Ноти першої октави — базовий рівень.',secondDesc:'У картках з’являються лише ноти другої октави.',mixedDesc:'Ноти першої та другої октав чергуються.',accDesc:'У змішаному режимі додаються дієзи та бемолі, але не до кожної картки.',warning:'Час спливає!',warningText:'Поквапся, залишилось зовсім мало часу.'},
+ru:{n0:'Знакомство',n1:'Границы октавы',n2:'Названия октав',n3:'Игра на скорость',h0:'Вся клавиатура',h0d:'Наведи курсор или коснись октавы — она подсветится и зазвучит.',swipe:'👉 Клавиатуру можно листать вбок.',defw:'ОКТАВА',defd:'последовательная часть клавиатуры от ДО до СИ.',qh:'Проверь себя',qn:'Вопрос {a} из {b}',a1:'Сколько нот в одной октаве?',a2:'Является ли октавой ноты от {x} до {y}?',yes2:'Да, это октава',no2:'Нет, это только часть октавы',a3:'Какая последовательность нот в октаве правильная?',a4:'С какой ноты начинается октава?',a5:'Какой нотой заканчивается октава?',b1:'Где правильно выделены границы октавы — от {x} до {y}?',f1:'Найди {o} октаву',f2:'Кликни на нужную октаву на клавиатуре.',hint:'💡 Подсказка',of:'{a} из {b}',p1:'Отлично! Ты настоящий музыкант! 🎉',p2:'Молодец! Ещё немного практики — и будет идеально! 🌟',p3:'Не расстраивайся — ошибки помогают учиться. Попробуй ещё раз! 💪',again:'Пройти ещё раз',gt:'Игра на скорость',gs:'Найди названную ноту на клавиатуре, пока не вышло время!',gtime:'⏱ Время игры',gown:'Своё время:',sec:'с',gmode:'Уровень сложности',go:'Поехали!',stop:'Остановить',up:'Время вышло!',res:'За {t} — {n} нот — {e} ошибок',again2:'Играть ещё',set:'Изменить настройки',g1:'ИДЕАЛЬНО! 🏆',g2:'МОЛОДЕЦ! 🎉',g3:'Хорошая попытка! Тренируйся — и будет ещё лучше! 💪',sharp:'диез',flat:'бемоль',tg:'{n} · {o} октава',mute:'Выключить звук',cs:['30 с','1 мин','2 мин','3 мин'],start:'СТАРТ',second:'Режим второй октавы',mixed:'Добавить ноты второй октавы',acc:'Добавить знаки альтерации',first:'Базовый режим',keyboard:'Играть с клавиатурой',keyboardDesc:'Вместо ✓ / ✗ ученик нажимает нужную ноту на экранной клавиатуре.',firstDesc:'Ноты первой октавы — базовый уровень.',secondDesc:'В карточках появляются только ноты второй октавы.',mixedDesc:'Ноты первой и второй октав чередуются.',accDesc:'В смешанном режиме добавляются диезы и бемоли, но не в каждую карточку.',warning:'Время заканчивается!',warningText:'Поторопись, осталось совсем мало времени.'},
+en:{n0:'Intro',n1:'Octave limits',n2:'Octave names',n3:'Speed game',h0:'The whole keyboard',h0d:'Hover or tap an octave — it lights up and plays.',swipe:'👉 Swipe the keyboard sideways.',defw:'OCTAVE',defd:'a consecutive part of the keyboard from C to B.',qh:'Test yourself',qn:'Question {a} of {b}',a1:'How many notes are in one octave?',a2:'Is the span from {x} to {y} an octave?',yes2:'Yes, it is an octave',no2:'No, it is only part of an octave',a3:'Which note order in an octave is correct?',a4:'Which note does an octave start with?',a5:'Which note does an octave end with?',b1:'Which keyboard shows the octave limits correctly — from {x} to {y}?',f1:'Find the {o} octave',f2:'Click the right octave on the keyboard.',hint:'💡 Hint',of:'{a} out of {b}',p1:'Excellent! You are a real musician! 🎉',p2:'Well done! A little more practice and it will be perfect! 🌟',p3:'Mistakes help us learn. Try again! 💪',again:'Try again',gt:'Speed game',gs:'Find the named note before time runs out!',gtime:'⏱ Game time',gown:'Custom time:',sec:'s',gmode:'Difficulty',go:'Let’s go!',stop:'Stop',up:'Time’s up!',res:'In {t}: {n} notes, {e} mistakes',again2:'Play again',set:'Change settings',g1:'PERFECT! 🏆',g2:'WELL DONE! 🎉',g3:'Good try! Keep practising! 💪',sharp:'sharp',flat:'flat',tg:'{n} · {o} octave',mute:'Mute',cs:['30 s','1 min','2 min','3 min'],start:'START',second:'Second octave mode',mixed:'Add second-octave notes',acc:'Add accidentals',first:'Basic mode',keyboard:'Play with keyboard',keyboardDesc:'Instead of ✓ / ✗, press the correct note on the on-screen keyboard.',firstDesc:'First-octave notes — basic level.',secondDesc:'Only second-octave notes appear.',mixedDesc:'First and second octaves are mixed.',accDesc:'Sharps and flats are mixed into the exercise.',warning:'Time is running out!',warningText:'Hurry up — only a little time remains.'}};
+const t=(k,o={})=>(LG[L][k]??LG.uk[k]).replace(/\{(\w+)\}/g,(m,x)=>o[x]);
+const NN=()=>L==='en'?['C','D','E','F','G','A','B']:L==='ru'?['ДО','РЕ','МИ','ФА','СОЛЬ','ЛЯ','СИ']:['ДО','РЕ','МІ','ФА','СОЛЬ','ЛЯ','СІ'];
+const ON=()=>L==='en'?['Contra','Great','Small','1st','2nd','3rd','4th']:L==='ru'?['Контроктава','Большая','Малая','Первая','Вторая','Третья','Четвёртая']:['Контроктава','Велика','Мала','Перша','Друга','Третя','Четверта'];
+const OG=()=>ON(),OA=()=>L==='en'?['contra','great','small','1st','2nd','3rd','4th']:L==='ru'?['контроктаву','большую','малую','первую','вторую','третью','четвёртую']:['контроктаву','велику','малу','першу','другу','третю','четверту'];
+const $=s=>document.querySelector(s), WS=[0,2,4,5,7,9,11], BS=[1,3,0,6,8,10];
 const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
-/* ---------- ЗВУК: м'який «піаніно»-синтез ---------- */
-let ac,mg,vol=.7,muted=false;
-function audio(){if(ac){ac.state==='suspended'&&ac.resume();return}
- ac=new(window.AudioContext||window.webkitAudioContext)();mg=ac.createGain();setVol();
- const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2800;lp.Q.value=.3;
- const cp=ac.createDynamicsCompressor(),d=ac.createDelay(),fb=ac.createGain(),w=ac.createGain();
- d.delayTime.value=.085;fb.gain.value=.3;w.gain.value=.16;
- mg.connect(lp);lp.connect(cp);cp.connect(ac.destination);lp.connect(d);d.connect(fb);fb.connect(d);d.connect(w);w.connect(cp)}
+function audio(){if(ac){if(ac.state==='suspended')ac.resume();return}ac=new(window.AudioContext||window.webkitAudioContext)();mg=ac.createGain();setVol();const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2800;lp.Q.value=.3;const cp=ac.createDynamicsCompressor();mg.connect(lp);lp.connect(cp);cp.connect(ac.destination)}
 function setVol(){if(mg)mg.gain.value=muted?0:Math.pow(vol,2)*.9}
-function note(o,s,at=0,v=.32){audio();const m=24+12*o+s,f=440*2**((m-69)/12),t=ac.currentTime+at+.01,dur=Math.max(.9,3-(m-24)/36);
- const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.018);g.gain.exponentialRampToValueAtTime(v*.35,t+.25);g.gain.exponentialRampToValueAtTime(.0005,t+dur);g.connect(mg);
- [[1,1],[1.003,.5],[2,.4],[3,.16],[4,.08],[5,.04]].forEach(([k,a])=>{const x=ac.createOscillator(),y=ac.createGain();x.type='sine';x.frequency.value=f*k*(k>2?1+.0003*k*k:1);y.gain.value=a/(1+f*k/9000);x.connect(y);y.connect(g);x.start(t);x.stop(t+dur+.1)})}
+function note(o,s,at=0,v=.32){audio();const m=24+12*o+s,f=440*2**((m-69)/12),tt=ac.currentTime+at+.01,dur=Math.max(.9,3-(m-24)/36);const g=ac.createGain();g.gain.setValueAtTime(0,tt);g.gain.linearRampToValueAtTime(v,tt+.018);g.gain.exponentialRampToValueAtTime(v*.35,tt+.25);g.gain.exponentialRampToValueAtTime(.0005,tt+dur);g.connect(mg);[[1,1],[1.003,.5],[2,.4],[3,.16],[4,.08],[5,.04]].forEach(([k,a])=>{const x=ac.createOscillator(),y=ac.createGain();x.type='sine';x.frequency.value=f*k*(k>2?1+.0003*k*k:1);y.gain.value=a/(1+f*k/9000);x.connect(y);y.connect(g);x.start(tt);x.stop(tt+dur+.1)})}
 const arp=o=>[0,4,7].forEach((s,i)=>note(o,s,i*.17,.3));
-$('#vol').oninput=e=>{vol=e.target.value/100;muted=false;$('#mute').textContent=vol?'🔊':'🔈';setVol()};
-$('#mute').onclick=()=>{muted=!muted;$('#mute').textContent=muted?'🔇':'🔊';setVol()};
-document.addEventListener('pointerdown',audio,{once:true});
-/* ---------- Клавіатура ---------- */
-function kbHTML(n,o={}){const a=o.hl||[-1,-1];let h='<div class="kb">';
- for(let i=0;i<n*7;i++){const oc=i/7|0,k=i%7;h+=`<div class="wk${i>=a[0]&&i<=a[1]?' in':''}" data-o="${oc}" data-n="${k}">${o.lbl&&k==0?`<span class="lb">${NN()[0]}<sub>${oc+1}</sub></span>`:''}${k!=2&&k!=6?`<div class="bk" data-o="${oc}" data-s="${BS[k]}"></div>`:''}</div>`}
- h+='</div>';if(o.ov)for(let i=0;i<n;i++)h+=`<div class="ov" data-o="${i}" style="left:${i/n*100}%;width:${100/n}%;--h:${[250,330,150,30,190,280,10][i%7]}"><span class="ot">${ON()[i]}</span></div>`;return h}
-const ok_svg='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#22c55e"/><path d="M28 52l16 16 30-34" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>',
- no_svg='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#ef4444"/><path d="M33 33l34 34M67 33L33 67" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/></svg>';
-function fb(good,q){const e=$('#fb');e.className='';e.innerHTML=good?ok_svg:no_svg;void e.offsetWidth;e.className='show'+(good?'':' x');clearTimeout(fb.t);fb.t=setTimeout(()=>e.className='',1100);
- if(!good){note(3,0,0,.13);note(2,9,.16,.11)}else if(!q){note(4,0,0,.2);note(4,4,.1,.2);note(4,7,.2,.2)}}
-const ph=(a,b)=>`<div class="ph"><h1>${a}</h1><p>${b}</p></div>`;
-function result(root,ok,tot,again,head=''){root.innerHTML=`${head}<div class="res"><div class="big">${t('of',{a:ok,b:tot})}</div><p>${ok/tot>=.9?t('p1'):ok/tot>=.6?t('p2'):t('p3')}</p><button class="btn">${t('again')}</button></div>`;root.querySelector('.btn').onclick=again;if(ok/tot>=.6)arp(4)}
-const score=(o,b)=>`<span class="score"><b class="g">✓ ${o}</b><b class="r">✗ ${b}</b></span>`;
-const mk=(q,c,w)=>{const o=sh([c,...w]);return{q,opts:o,a:o.indexOf(c)}};
-function quiz1(){const n=NN(),sq=a=>a.map(i=>n[i]).join(' ');
- run($('#q1'),[mk(t('a1'),'7',['5','8','12']),mk(t('a2',{x:n[0],y:n[4]}),t('no2'),[t('yes2')]),mk(t('a3'),sq([0,1,2,3,4,5,6]),[sq([0,2,1,3,4,6,5]),sq([1,2,3,4,5,6,0]),sq([0,1,2,4,3,5,6])]),mk(t('a4'),n[0],[n[1],n[5],n[6]]),mk(t('a5'),n[6],[n[0],n[4],n[1]])],quiz1,'',ph(t('n0'),t('qs')))}
-function run(R,it,again,cls='',head=''){let i=0,ok=0,bad=0,lock=0;(function d(){if(i>=it.length)return result(R,ok,it.length,again,head);const q=it[i];
- R.innerHTML=`${head}<div class="qtop"><span>${t('qn',{a:i+1,b:it.length})}</span>${score(ok,bad)}</div><div class="bar"><i style="width:${i/it.length*100}%"></i></div><h3 class="qq">${q.q}</h3><div class="opts ${cls}">${q.opts.map((o,k)=>`<button class="opt" data-k="${k}">${o}</button>`).join('')}</div>`;
- R.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(lock)return;lock=1;const g=+b.dataset.k===q.a;b.classList.add(g?'good':'bad');R.querySelectorAll('.opt')[q.a].classList.add('good');g?ok++:bad++;fb(g);setTimeout(()=>{i++;lock=0;d()},1400)})})()}
-function quiz2(){const it=[],n=NN();for(let r=0;r<5;r++){const c=Math.random()<.5?0:7,all=sh([c,...sh([1,2,3,4,5,6]).slice(0,3)]);
- it.push({q:t('b1',{x:n[0],y:n[6]}),opts:all.map(s=>`<div class="mini">${kbHTML(2,{hl:[s,s+6]})}</div>`),a:all.indexOf(c)})}
- run($('#q2'),it,quiz2,'kbopts',ph(t('n1'),t('ls')))}
-let hintT;
-function quiz3(){const R=$('#q3'),ord=sh([0,1,2,3,4,5,6]);let i=0,ok=0,bad=0,lock=0;
- (function d(){if(i>=7)return result(R,ok,7,quiz3,ph(t('n2'),t('f2')));const a=ord[i];
- R.innerHTML=`<div class="qtop"><span>${t('qn',{a:i+1,b:7})}</span>${score(ok,bad)}</div><div class="bar"><i style="width:${i/7*100}%"></i></div>${ph(t('n2'),t('f2'))}<h2 class="qq big2">${t('f1',{o:OA()[a]})}</h2><div class="tools"><button class="btn alt" id="hint">${t('hint')}</button></div><div class="kbw"><div class="kbs" id="k3">${kbHTML(7,{ov:1,lbl:1})}</div></div><p class="touch">${t('swipe')}</p>`;
- $('#hint').onclick=()=>{const k=$('#k3');k.classList.add('tt');clearTimeout(hintT);hintT=setTimeout(()=>k.classList.remove('tt'),1400)};
- R.querySelectorAll('.ov').forEach(v=>v.onclick=()=>{if(lock)return;lock=1;const o=+v.dataset.o,g=o===a;v.classList.add(g?'good':'bad');if(!g)R.querySelector(`.ov[data-o="${a}"]`).classList.add('good');g?ok++:bad++;g&&arp(o);fb(g,1);setTimeout(()=>{i++;lock=0;d()},1500)})})()}
-let G={sec:60,online:true,acc:false};
-const nm=(k,a)=>a?(L=='en'?NN()[k]+(a>0?'♯':'♭'):NN()[k]+'-'+t(a>0?'sharp':'flat')):NN()[k];
-function setup4(){const R=$('#q4'),pre=[30,60,120,180];
- R.innerHTML=`${ph(t('n3'),t('gs'))}<div class="setup"><div class="fld"><h4>${t('gtime')}</h4><div class="chips">${pre.map((s,i)=>`<button class="chip" data-s="${s}">${LG[L].cs[i]}</button>`).join('')}</div>
- <div class="own"><span class="ownl">${t('gcustom')}</span><label class="num"><input type="number" id="cm" min="0" max="15" inputmode="numeric" value="${G.sec/60|0}"><span>${t('minu')}</span></label><label class="num"><input type="number" id="cs" min="0" max="59" inputmode="numeric" value="${G.sec%60}"><span>${t('sec')}</span></label><span class="rng">${t('rng')}</span></div></div>
- <div class="fld"><h4>${t('gmode')}</h4><label class="sw"><input type="checkbox" id="onl" ${G.online?'checked':''}><span>${t('gonl')}</span></label><label class="sw"><input type="checkbox" id="acc" ${G.acc?'checked':''}><span>${t('gacc')}</span></label></div>
- <div class="act"><button class="btn lg" id="go">${t('go')}</button></div></div>`;
- const cm=$('#cm'),cs=$('#cs'),tot=()=>Math.max(0,+cm.value||0)*60+Math.max(0,+cs.value||0),
- mark=()=>R.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',+c.dataset.s==tot()));mark();
- R.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{const s=+c.dataset.s;cm.value=s/60|0;cs.value=s%60;mark()});
- const fix=()=>{let s=Math.max(10,Math.min(900,tot()));cm.value=s/60|0;cs.value=s%60;mark()};
- [cm,cs].forEach(i=>{i.oninput=mark;i.onchange=fix;i.onfocus=()=>i.select()});
- $('#go').onclick=()=>{fix();G.sec=tot();G.online=$('#onl').checked;G.acc=$('#acc').checked;play4()}}
-function tm(s){const m=s/60|0,r=s%60;return [m?m+' '+t('minu'):'',r?r+' '+t('sec'):''].filter(Boolean).join(' ')}
-function play4(){const R=$('#q4');let ok=0,bad=0,T=null,end=Date.now()+G.sec*1e3,done=0;
- R.innerHTML=`<div class="hud"><div class="timer" id="tmr"></div><span id="sc"></span><button class="btn alt" id="stop">${t('stop')}</button></div><div class="target" id="tg"></div>${G.online?`<div class="kbw" style="padding-top:8px"><div class="kbs" id="k4" style="--mw:1080px">${kbHTML(7,{lbl:1})}</div></div><p class="touch">${t('swipe')}</p>`:'<div class="jg"><button id="yes" style="background:#22c55e">✓</button><button id="no" style="background:#ef4444">✗</button></div>'}`;
- const gen=()=>{let n;do{const o=Math.random()*7|0;if(G.acc&&Math.random()<.45){const k=[0,1,3,4,5][Math.random()*5|0],f=Math.random()<.5;n={o,s:BS[k],b:1,k:f?k+1:k,a:f?-1:1}}else{const k=Math.random()*7|0;n={o,k,s:WS[k],b:0,a:0}}}while(T&&n.o==T.o&&n.s==T.s);return n},
- nx=()=>{T=gen();$('#tg').innerHTML=t('tg',{n:'<em>'+nm(T.k,T.a)+'</em>',o:OG()[T.o]});$('#sc').innerHTML=score(ok,bad)},
- ans=g=>{if(done)return;g?ok++:bad++;fb(g,1);nx()};nx();
- if(G.online)$('#k4').onclick=e=>{const k=e.target.closest('.bk,.wk');if(!k||done)return;const o=+k.dataset.o;if(k.classList.contains('bk')){const g=G.acc&&!!T.b&&o==T.o&&+k.dataset.s==T.s;if(!G.acc||g)note(o,+k.dataset.s);return G.acc&&ans(g)}const g=!T.b&&o==T.o&&+k.dataset.n==T.k;if(g)note(o,WS[+k.dataset.n]);ans(g)};
- else{$('#yes').onclick=()=>ans(1);$('#no').onclick=()=>ans(0)}
- const fin=()=>{if(done)return;done=1;clearInterval(iv);const m=document.createElement('div');m.className='modal';
-  m.innerHTML=`<div class="card res modalc" role="dialog" aria-modal="true"><h2>${t('up')}</h2><p>${t('res',{t:tm(G.sec),n:ok,e:bad})}</p><div class="verdict">${bad==0&&ok>0?t('g1'):ok>=bad*3&&ok>0?t('g2'):t('g3')}</div><div class="row"><button class="btn" id="again">${t('again2')}</button><button class="btn alt" id="chg">${t('set')}</button></div></div>`;
-  document.body.appendChild(m);if(ok>bad)arp(4);$('#again').onclick=()=>{m.remove();play4()};$('#chg').onclick=()=>{m.remove();setup4()}};
- const iv=setInterval(()=>{const l=Math.max(0,Math.ceil((end-Date.now())/1e3)),e=$('#tmr');if(!e)return clearInterval(iv);e.textContent=Math.floor(l/60)+':'+String(l%60).padStart(2,'0');e.classList.toggle('low',l<=10);if(l<=0)fin()},200);
- $('#stop').onclick=()=>{done=1;clearInterval(iv);setup4()}}
+$('#vol').oninput=e=>{vol=e.target.value/100;muted=false;$('#mute').textContent=vol?'🔊':'🔈';setVol()};$('#mute').onclick=()=>{muted=!muted;$('#mute').textContent=muted?'🔇':'🔊';setVol()};document.addEventListener('pointerdown',audio,{once:true});
 
-const IC={
- home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',
- quiz:'<circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/>',
- lim:'<path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/>',
- names:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',
- game:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
- arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>'},
- svg=(k,s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
-const T=[{k:'nh',ic:'home',f:renderHome},{k:'n0',d:'d0',ic:'quiz',c:'#4f46e5',bg:'#eef0ff',f:quiz1},{k:'n1',d:'d1',ic:'lim',c:'#0f766e',bg:'#e0f5f1',f:quiz2},{k:'n2',d:'d2',ic:'names',c:'#b45309',bg:'#fdf1dc',f:quiz3},{k:'n3',d:'d3',ic:'game',c:'#be123c',bg:'#fde8ec',f:setup4}];let cur=0;
-function renderHome(){
- $('#home').innerHTML=`<section class="hero"><h1>${t('defw')}</h1><p class="lead">${t('defd')}</p>
-  <div class="notes" role="group" aria-label="${t('sev')}">${NN().map((n,k)=>`<button class="nt" data-k="${k}">${n}</button>`).join('')}</div><p class="hnote">${t('sev')}</p></section>
- <section class="card"><div class="ch"><h2>${t('h0')}</h2><p class="sub">${t('h0d')}</p></div><div class="kbw"><div class="kbs tt" id="kb0">${kbHTML(7,{ov:1,lbl:1})}</div></div><p class="touch">${t('swipe')}</p></section>
- <section class="secs"><h2 class="sh">${t('sec_h')}</h2><div class="tiles">${T.slice(1).map((x,i)=>`<button class="tile" data-i="${i+1}" style="--tc:${x.c};--tb:${x.bg}"><span class="ti">${svg(x.ic,26)}</span><span class="tx"><b>${t(x.k)}</b><span>${t(x.d)}</span></span><span class="go" aria-hidden="true">${svg('arrow',20)}</span></button>`).join('')}</div></section>`;
- let last=0;const hit=e=>{const v=e.target.closest('.ov');if(!v||Date.now()-last<250)return;last=Date.now();arp(+v.dataset.o)};const k=$('#kb0');k.addEventListener('pointerenter',hit,true);k.addEventListener('click',hit);
- document.querySelectorAll('.nt').forEach(b=>b.onclick=()=>{note(3,WS[+b.dataset.k],0,.3);b.classList.remove('pl');void b.offsetWidth;b.classList.add('pl')});
- document.querySelectorAll('.tile').forEach(b=>b.onclick=()=>go(+b.dataset.i))}
-function go(i,sc=1){cur=i;document.querySelectorAll('.pg').forEach((p,k)=>p.classList.toggle('on',k==i));
- document.querySelectorAll('#nav button').forEach((b,k)=>{b.classList.toggle('on',k==i);k==i?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current')});T[i].f();sc&&scrollTo({top:0,behavior:'smooth'})}
-$('#nav').onclick=e=>{const b=e.target.closest('button');b&&go(+b.dataset.i)};
-$('#brand').onclick=()=>go(0);
-function setLang(l){L=l;try{localStorage.setItem('lang',l)}catch(e){}document.documentElement.lang=l;$('#lang').value=l;$('#mute').title=t('mute');
- $('#nav').innerHTML=T.map((x,i)=>`<button data-i="${i}">${svg(x.ic,18)}<span>${t(x.k)}</span></button>`).join('');go(cur,0)}
-$('#lang').onchange=e=>setLang(e.target.value);
-let L0='uk';try{L0=localStorage.getItem('lang')||L0}catch(e){}
-setLang(LG[L0]?L0:'uk');
+function kbHTML(n,o={}){const a=o.hl||[-1,-1];let h='<div class="kb">';for(let i=0;i<n*7;i++){const oc=i/7|0,k=i%7;h+=`<div class="wk${i>=a[0]&&i<=a[1]?' in':''}" data-o="${oc}" data-n="${k}">${o.lbl&&k===0?`<span class="lb">${NN()[0]}<sub>${oc+1}</sub></span>`:''}${k!==2&&k!==6?`<div class="bk" data-o="${oc}" data-s="${BS[k]}"></div>`:''}</div>`}h+='</div>';if(o.ov)for(let i=0;i<n;i++)h+=`<div class="ov" data-o="${i}" style="left:${i/n*100}%;width:${100/n}%;--h:${[250,330,150,30,190,280,10][i%7]}"><span class="ot">${ON()[i]}</span></div>`;return h}
+const ok_svg='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#31a86b"/><path d="M28 52l16 16 30-34" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>',no_svg='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#d95867"/><path d="M33 33l34 34M67 33L33 67" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/></svg>';
+function fb(good){const e=$('#fb');e.className='';e.innerHTML=good?ok_svg:no_svg;void e.offsetWidth;e.className='show';clearTimeout(fb.t);fb.t=setTimeout(()=>e.className='',1000);good?arp(4):note(2,1,0,.3)}
+function score(o,b){return `<span class="score"><b class="g">✓ ${o}</b><b class="r">✗ ${b}</b></span>`}
+function result(root,ok,tot,again){root.innerHTML=`<div style="text-align:center;padding:24px 0"><div class="big" style="font-size:4rem;font-weight:900;color:var(--accent)">${t('of',{a:ok,b:tot})}</div><p class="sub">${ok/tot>=.9?t('p1'):ok/tot>=.6?t('p2'):t('p3')}</p><button class="btn">${t('again')}</button></div>`;root.querySelector('.btn').onclick=again;if(ok/tot>=.6)arp(4)}
+const mk=(q,c,w)=>{const o=sh([c,...w]);return{q,opts:o,a:o.indexOf(c)}};
+
+function introSection(){const R=$('#p0');if(R.querySelector('.home-games'))return}
+function setupModes(extraKeyboard=false){return `<div class="setting-block"><div class="setting-label">${t('gmode')}</div><div class="modes">
+<label class="mode on"><input type="radio" name="gm" value="first" checked><span class="star">★</span><strong>① ${t('first')}</strong><span>${t('firstDesc')}</span></label>
+<label class="mode"><input type="radio" name="gm" value="second"><span class="star">★★</span><strong>② ${t('second')}</strong><span>${t('secondDesc')}</span></label>
+<label class="mode"><input type="radio" name="gm" value="mixed"><span class="star">★★★</span><strong>③ ${t('mixed')}</strong><span>${t('mixedDesc')}</span></label>
+<label class="mode"><input type="radio" name="gm" value="acc"><span class="star">★★★★</span><strong>④ ${t('acc')}</strong><span>${t('accDesc')}</span></label>
+</div></div>${extraKeyboard?`<div class="setting-block"><label class="mode" style="display:block"><input type="checkbox" id="keyboardMode"><strong>🎹 ${t('keyboard')}</strong><span>${t('keyboardDesc')}</span></label></div>`:''}`}
+let G={sec:60,mode:'first',keyboard:false,acc:false};
+function setup4(){const R=$('#q4');R.innerHTML=`<div class="setup-shell"><div class="setup-title"><div class="icon">⚡</div><h2>${t('gt')}</h2><p>${t('gs')}</p></div><div class="setting-block"><div class="setting-label">${t('gtime')}</div><div class="time-row">${[30,60,120,180].map((s,i)=>`<button class="chip${s===G.sec?' on':''}" data-s="${s}">${LG[L].cs[i]}</button>`).join('')}</div><div class="custom-time">${t('gown')} <input type="number" id="cs" min="10" max="900" value="${G.sec}"> ${t('sec')}</div></div>${setupModes(true)}<div class="start-row"><button class="btn" id="go">✦ ${t('start')}</button></div><div class="inline-note">★ = складність · обраний режим можна змінити перед кожним раундом</div></div>`;
+R.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{$('#cs').value=c.dataset.s;R.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===c))});
+R.querySelectorAll('input[name=gm]').forEach(x=>x.onchange=()=>R.querySelectorAll('.mode').forEach(m=>m.classList.toggle('on',m.querySelector('input').checked)));
+$('#keyboardMode').onchange=e=>G.keyboard=e.target.checked;$('#go').onclick=()=>{G.sec=Math.max(10,Math.min(900,+$('#cs').value||60));G.mode=R.querySelector('input[name=gm]:checked').value;G.keyboard=$('#keyboardMode').checked;play4()}}
+function chooseNote(){let o;if(G.mode==='second')o=1;else if(G.mode==='first')o=0;else o=Math.random()<.5?0:1;let k=Math.random()*7|0,s=WS[k],a=0,b=0;if(G.mode==='acc' && Math.random()<.5){const keys=[0,1,3,4,5],j=keys[Math.random()*keys.length|0];s=BS[j];k=j;a=Math.random()<.5?-1:1;b=1}return{o,k,s,a,b}}
+function nm(k,a){return a?(L==='en'?NN()[k]+(a>0?'♯':'♭'):NN()[k]+'-'+t(a>0?'sharp':'flat')):NN()[k]}
+function tm(s){if(s%60)return s+' '+t('sec');const m=s/60;return L==='uk'?(m===1?'1 хвилину':m<5?m+' хвилини':m+' хвилин'):L==='ru'?(m===1?'1 минуту':m<5?m+' минуты':m+' минут'):m+(m===1?' minute':' minutes')}
+function showWarning(){const w=$('#warning');$('#warnTitle').textContent=t('warning');$('#warnText').textContent=t('warningText');w.classList.add('show');clearTimeout(showWarning.t);showWarning.t=setTimeout(()=>w.classList.remove('show'),2600)}
+function play4(){const R=$('#q4');let ok=0,bad=0,T=null,done=false,end=Date.now()+G.sec*1000,lastLow=false;
+R.innerHTML=`<div class="hud"><div><div class="timer" id="tmr">--:--</div></div><div class="target" id="tg">—</div><div class="hud-right">${score(0,0)}<br><button class="btn alt" id="stop" style="padding:8px 15px;margin-top:7px">${t('stop')}</button></div></div>${G.keyboard?`<div class="two-oct-keyboard"><div class="kbs" id="k4">${kbHTML(2,{lbl:1})}</div><div class="kbd-note">🎹 2 октави · натискай потрібну клавішу</div></div>`:`<div class="jg"><button id="yes" style="background:var(--green)">✓</button><button id="no" style="background:var(--red)">✗</button></div>`}`;
+const gen=()=>{let n;do{n=chooseNote()}while(T&&n.o===T.o&&n.s===T.s);return n},nx=()=>{T=gen();$('#tg').innerHTML=t('tg',{n:'<em>'+nm(T.k,T.a)+'</em>',o:OG()[T.o]});$('#q4 .score').outerHTML=score(ok,bad)};
+const ans=g=>{if(done)return;g?ok++:bad++;fb(g);nx()};nx();
+if(G.keyboard)$('#k4').onclick=e=>{const k=e.target.closest('.bk,.wk');if(!k||done)return;const o=+k.dataset.o;if(k.classList.contains('bk')){note(o,+k.dataset.s);ans(T.b&&o===T.o&&+k.dataset.s===T.s)}else{note(o,WS[+k.dataset.n]);ans(!T.b&&o===T.o&&+k.dataset.n===T.k)}};
+else{$('#yes').onclick=()=>ans(1);$('#no').onclick=()=>ans(0)}
+const fin=()=>{if(done)return;done=true;clearInterval(iv);$('#warning').classList.remove('show');const m=document.createElement('div');m.className='modal';m.innerHTML=`<div class="modal-card"><h2>${t('up')}</h2><p>${t('res',{t:tm(G.sec),n:ok,e:bad})}</p><div class="big" style="font-size:2.2rem;font-weight:900;color:var(--accent)">${bad===0&&ok>0?t('g1'):ok>=bad*3&&ok>0?t('g2'):t('g3')}</div><br><button class="btn" id="again">${t('again2')}</button> <button class="btn alt" id="chg">${t('set')}</button></div>`;document.body.appendChild(m);if(ok>bad)arp(4);$('#again').onclick=()=>{m.remove();play4()};$('#chg').onclick=()=>{m.remove();setup4()}};
+const iv=setInterval(()=>{const l=Math.max(0,Math.ceil((end-Date.now())/1000)),e=$('#tmr');if(!e)return clearInterval(iv);e.textContent=Math.floor(l/60)+':'+String(l%60).padStart(2,'0');e.classList.toggle('low',l<=10);if(l<=10&&!lastLow){lastLow=true;showWarning()}if(l<=0)fin()},150);
+$('#stop').onclick=()=>{done=true;clearInterval(iv);setup4()}}
+function quiz1(){const R=$('#p0');R.querySelector('.hero')?.remove();R.querySelector('.home-games')?.remove();R.innerHTML=`<div class="panel"><div class="panel-head"><div><h2>${t('qh')}</h2><p class="sub">${t('a1')}</p></div></div><div class="content"><div class="setup-shell">${setupModes()}<div class="start-row"><button class="btn" id="start1">✦ ${t('start')}</button></div></div><div class="quiz-card" id="q1" style="display:none"></div></div></div>`;document.querySelectorAll('input[name=gm]').forEach(x=>x.onchange=()=>document.querySelectorAll('.mode').forEach(m=>m.classList.toggle('on',m.querySelector('input').checked)));$('#start1').onclick=()=>{G.mode=$('input[name=gm]:checked').value;const n=NN(),sq=a=>a.map(i=>n[i]).join(' '),it=[mk(t('a1'),'7',['5','8','12']),mk(t('a2',{x:n[0],y:n[4]}),t('no2'),[t('yes2')]),mk(t('a3'),sq([0,1,2,3,4,5,6]),[sq([0,2,1,3,4,6,5]),sq([1,2,3,4,5,6,0]),sq([0,1,2,4,3,5,6])]),mk(t('a4'),n[0],[n[1],n[5],n[6]]),mk(t('a5'),n[6],[n[0],n[4],n[1]])];$('#q1').style.display='block';document.querySelector('.setup-shell').style.display='none';run($('#q1'),it,quiz1)}}
+function run(R,it,again){let i=0,ok=0,bad=0,lock=0;(function d(){if(i>=it.length)return result(R,ok,it.length,again);const q=it[i];R.innerHTML=`<div class="qtop"><span>${t('qn',{a:i+1,b:it.length})}</span>${score(ok,bad)}</div><div class="bar"><i style="width:${i/it.length*100}%"></i></div><h3>${q.q}</h3><div class="opts">${q.opts.map((o,k)=>`<button class="opt" data-k="${k}">${o}</button>`).join('')}</div>`;R.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(lock)return;lock=1;const g=+b.dataset.k===q.a;b.classList.add(g?'good':'bad');R.querySelectorAll('.opt')[q.a].classList.add('good');g?ok++:bad++;fb(g);setTimeout(()=>{i++;lock=0;d()},950)})})()}
+function quiz2(){const R=$('#q2');R.innerHTML=`<div class="setup-shell"><div class="setup-title"><div class="icon">↔️</div><h2>${t('n1')}</h2><p>${t('b1',{x:NN()[0],y:NN()[6]})}</p></div>${setupModes()}<div class="start-row"><button class="btn" id="start2">✦ ${t('start')}</button></div></div>`;bindSetup(()=>runQuiz2(R))}
+function runQuiz2(R){const it=[],n=NN();for(let r=0;r<5;r++){const c=G.mode==='second'?7:G.mode==='first'?0:Math.random()<.5?0:7,all=sh([c,...sh([1,2,3,4,5,6]).slice(0,2)]);it.push({q:t('b1',{x:n[0],y:n[6]}),opts:all.map(s=>`<div class="mini kbs" style="min-width:0">${kbHTML(2,{hl:[s,s+6]})}</div>`),a:all.indexOf(c)})}run(R,it,quiz2)}
+function bindSetup(start){document.querySelectorAll('input[name=gm]').forEach(x=>x.onchange=()=>document.querySelectorAll('.mode').forEach(m=>m.classList.toggle('on',m.querySelector('input').checked)));$('#start2')?.addEventListener('click',()=>{G.mode=$('input[name=gm]:checked').value;start()})}
+function quiz3(){const R=$('#q3');R.innerHTML=`<div class="setup-shell"><div class="setup-title"><div class="icon">🔍</div><h2>${t('n2')}</h2><p>${t('f2')}</p></div>${setupModes()}<div class="start-row"><button class="btn" id="start3">✦ ${t('start')}</button></div></div>`;document.querySelectorAll('input[name=gm]').forEach(x=>x.onchange=()=>document.querySelectorAll('.mode').forEach(m=>m.classList.toggle('on',m.querySelector('input').checked)));$('#start3').onclick=()=>{G.mode=$('input[name=gm]:checked').value;runQuiz3(R)}}
+function runQuiz3(R){const ord=sh([0,1,2,3,4,5,6]);let i=0,ok=0,bad=0,lock=0;(function d(){if(i>=7)return result(R,ok,7,quiz3);const a=ord[i];R.innerHTML=`<div class="qtop"><span>${t('qn',{a:i+1,b:7})}</span>${score(ok,bad)}</div><div class="bar"><i style="width:${i/7*100}%"></i></div><h3>${t('f1',{o:OA()[a]})}</h3><p class="sub">${t('f2')}</p><div class="tools" style="text-align:center;margin:12px 0"><button class="btn alt" id="hint">${t('hint')}</button></div><div class="kbw"><div class="kbs" id="k3">${kbHTML(7,{ov:1,lbl:1})}</div></div><p class="touch">${t('swipe')}</p>`;$('#hint').onclick=()=>$('#k3').classList.toggle('tt');R.querySelectorAll('.ov').forEach(v=>v.onclick=()=>{if(lock)return;lock=1;const o=+v.dataset.o,g=o===a;v.classList.add(g?'good':'bad');if(!g)R.querySelector(`.ov[data-o="${a}"]`).classList.add('good');g?ok++:bad++;arp(o);fb(g);setTimeout(()=>{i++;lock=0;d()},900)})})()}
+function bindNav(){const T=[['🎼','n0'],['↔️','n1'],['🔍','n2'],['⚡','n3']];$('#nav').innerHTML=T.map((x,i)=>`<button class="navbtn" data-i="${i}">${x[0]} ${t(x[1])}</button>`).join('')}
+function go(i,scroll=true){cur=i;document.querySelectorAll('.pg').forEach((p,k)=>p.classList.toggle('on',k===i));document.querySelectorAll('.navbtn').forEach((b,k)=>b.classList.toggle('on',k===i));if(i===0)quiz1();else if(i===1)quiz2();else if(i===2)quiz3();else setup4();if(scroll)scrollTo({top:0,behavior:'smooth'})}
+$('#nav').onclick=e=>{const b=e.target.closest('.navbtn');if(b)go(+b.dataset.i)};$('#lang').onchange=e=>setLang(e.target.value);
+function setLang(l){L=l;try{localStorage.setItem('lang',l)}catch(e){}document.documentElement.lang=l;$('#lang').value=l;$('#mute').title=t('mute');bindNav()}
+let L0='uk';try{L0=localStorage.getItem('lang')||'uk'}catch(e){}setLang(LG[L0]?L0:'uk');
 </script>
-</body>
-</html>
+</body></html>
